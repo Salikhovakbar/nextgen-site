@@ -110,10 +110,10 @@ supportingSentence: 'Также, шанс посещать co-working zone, гд
 }
 ]
 const hosting = 'http://localhost:5000';
-useEffect(async () => {
-    const teacherRes = await fetch(hosting + '/teachers-data')
-    const teachersData = (await teacherRes.json()).data
-    setTeachersInfo(teachersData)
+useEffect( () => {
+   fetch(hosting + '/teachers-data')
+  .then(response => response.json())
+  .then(data => setTeachersInfo(data.data))
 }, [])
 useEffect(() => {
 conditionCarouselEl.current.scrollLeft = conditionPage * conditionCarouselEl.current.offsetWidth
@@ -241,7 +241,7 @@ setRegisterForm(true)
   >
 
       {teachersInfo.length > 0 ? teachersInfo.map((e, index) => 
-          <SwiperSlide className='slide'>
+          <SwiperSlide key={e._id} className='slide'>
         <div key={e._id} className='carousel-slide-box'>
             <div className='teacher-img-box'>
                 <img src={e.imgLink} alt="" />
@@ -268,8 +268,8 @@ setRegisterForm(true)
   >
 
       {teachersInfo.length > 0 ? teachersInfo.map((e, index) => 
-          <SwiperSlide className='slide'>
-        <div key={e._id} className='carousel-slide-box'>
+          <SwiperSlide key={e._id} className='slide'>
+        <div className='carousel-slide-box'>
             <div className='teacher-img-box'>
                 <img src={e.imgLink} alt="" />
             </div>
@@ -295,8 +295,8 @@ setRegisterForm(true)
   >
 
       {teachersInfo.length > 0 ? teachersInfo.map((e, index) => 
-          <SwiperSlide className='slide'>
-        <div key={e._id} className='carousel-slide-box'>
+          <SwiperSlide key={e._id} className='slide'>
+        <div className='carousel-slide-box'>
             <div className='teacher-img-box'>
                 <img src={e.imgLink} alt="" />
             </div>
@@ -324,8 +324,8 @@ setConditionPage(0)
             <div>
                 <ul className='condition-ul'>
                 {
-                    conditions[0].condition.map(e => 
-                     <li>{e}</li>   
+                    conditions[0].condition.map((e, index) => 
+                     <li key={index}>{e}</li>   
                     )
                 }
                 </ul>
@@ -336,8 +336,8 @@ setConditionPage(0)
             <div>
             <ul className='condition-ul'>
                 {
-                    conditions[1].condition.map(e => 
-                     <li>{e}</li>   
+                    conditions[1].condition.map((e, index) => 
+                     <li key={index}>{e}</li>   
                     )
                 }
                 </ul>
@@ -389,7 +389,7 @@ setFirstname(e.target.value)
     </div>
     <footer>
         <h2>Наше место положение <i style={{color: "white"}}><ImLocation2/></i></h2>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2997.951500333577!2d69.20646212629943!3d41.28815999336483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1smirzo%20ulug&#39;bek%20metro!5e0!3m2!1sru!2s!4v1692009348515!5m2!1sru!2s" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2997.951500333577!2d69.20646212629943!3d41.28815999336483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1smirzo%20ulug&#39;bek%20metro!5e0!3m2!1sru!2s!4v1692009348515!5m2!1sru!2s"></iframe>
     </footer>
     </div>
   )
