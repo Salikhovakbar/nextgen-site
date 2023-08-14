@@ -1,0 +1,193 @@
+.registration-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+.registration-container > div{
+    width: 50%;
+    height: 100%;
+}
+.registration-svg-picture > svg{
+    width: 100%;
+    height: 100%;
+}
+
+.application-form-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.logo-box{
+    height: 70px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+.logo-box img{
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+h1{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 130%;
+    margin-top: 20px;
+    background: linear-gradient(87.72deg,black 2.12%,#fff 98.98%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.application-form-box > div{
+    width: 80%;
+}
+
+/* .application-form-box > div:last-child{
+    width: 70%;
+} */
+
+.title-text{
+    font-size: 16px;
+    line-height: 140%;
+    color: gray;
+    padding: 20px 0;
+}
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form input{
+    width: 70%;
+    padding: 5px;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    background: #fff;
+    border-radius: 15px;
+    padding: 15px;
+    font-size: 16px;
+    margin-top: 22px;
+    box-shadow: 0px 0px 5px gray;
+}
+
+.telephone-box-input{
+    display: flex ;
+    align-items: center ;
+    position:relative;
+    width: 70%;
+}
+
+.telephone-box-input > input{
+    height: 100%;
+    width: 100%;
+    padding-left: 75px;
+}
+
+.telephone-code-box{
+    border-radius: 15px 0 0 15px;
+    padding: 15px;
+    background: #dae6ff;
+    position: absolute;
+    bottom: 0;
+}
+
+.submit-btn{
+    background: black;
+    color: white;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 140%;
+    padding: 1rem 0;
+    width: 100%;
+    margin-top: 40px;
+    border: none;
+    width: 70%;
+}
+
+.submit-btn:hover{
+    background: gray;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.languages-box{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 30px;
+    width: 70%;
+}
+
+.languages-box > div{
+    display: flex;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.languages-box img{
+    border-radius: 50%;
+}
+
+.languages-box span{
+    padding-left: 5px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 140%;
+    color: #1c212d;
+}
+
+@media only screen and (max-width: 800px) {
+    .registration-svg-picture{
+        display: none;
+    }
+    .registration-container > div{
+        width: 100%;
+    padding-top: 0;
+    }
+    .logo-box > img{
+        width: 100%;
+    }
+    .registration-container > div > div:first-child{
+        width: 100%;
+        background: black;
+    }
+    .registration-container > div > div{
+        width: 80%;
+    }
+    .registration-container > div > div input{
+        width: 100%;
+    }
+    .telephone-box-input{
+        width: 100%;
+    }
+    .submit-btn{
+        width: 100%;
+    }
+    .languages-box{
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    h1{
+        font-size: 14px;
+    }
+    .logo-box{
+    height: 70px;
+    max-width: 500px;
+        justify-content: center;
+    }
+    .logo-box > img{
+        width: 100%;
+    }
+}
