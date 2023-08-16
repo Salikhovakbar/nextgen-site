@@ -9,7 +9,6 @@ import { MdCastForEducation, MdMobileFriendly } from 'react-icons/md'
 import { AiFillBook } from'react-icons/ai'
 import { HiUserGroup } from 'react-icons/hi'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import { ImLocation2 } from 'react-icons/im'
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -27,26 +26,32 @@ const [registerForm, setRegisterForm] = useState(false)
 const [teachersInfo, setTeachersInfo] = useState('')
 const conditionCarouselEl = useRef()
 const [conditionPage, setConditionPage] = useState(0)
+const [loadingStatement, setLoadingStatement]= useState(false)
 const conditions =[
     {
         type: 'general english',
         condition: [
-            'Группа 13 (±1) Учеников',
-            'Наш App и 1 книга (book)',
-            'Фирменная Тетрадь Grammar и Vocabulary',
-            'Сервис Academic Support',
-            'Speaking Club',
-            'standard group (550.000)',
-            "individual (1.650.000)so'm"
+            'Группа 10 (±2) Учеников',
+            'Фирменная книга',
+            'Фирменная тетрадь Grammar и Vocabulary',
+            'Мобильное приложение',
+            'Сервис Teaching Assistant and Speaking Assistant (два дополнительных учителя)',
+            'Speaking Club (по воскресеньям)',
+            'Групповые занятия (550.000 UZS)',
+            "Индивидуальные занятия (1.650.000 UZS)"
         ]
     },{
         type: 'ielts',
         condition: [
-            'Группа 13 (±1) Учеников',
-            'Сервис Academic Support',
-            'Speaking Club',
-            "standard group 650.000 so'm",
-            "individual (2.000.000)so'm"
+            'Группа 10 (±2) Учеников',
+            'Фирменная книга',
+            'Фирменная тетрадь Grammar и Vocabulary',
+            'Мобильное приложение',
+            'Сервис Teaching Assistant and Speaking Assistant (два дополнительных учителя)',
+            'Speaking Club (по воскресеньям)',
+            'Mock Exam по воскресеньям (Speaking and Writing evaluation)',
+            'Групповые занятия (650.000 UZS)',
+            "Индивидуальные занятия (2.000.000 UZS)"
         ]
     }
 ]
@@ -54,7 +59,7 @@ const mediaApps = [
     {
         media: 'Telegram',
         icon: <BiLogoTelegram/>,
-        link: ""
+        link: "https://t.me/nextgen_english_school"
     },
     {
         media: 'Instagram',
@@ -113,7 +118,14 @@ const hosting = 'http://localhost:5000';
 useEffect( () => {
    fetch(hosting + '/teachers-data')
   .then(response => response.json())
-  .then(data => setTeachersInfo(data.data))
+  .then(data => {
+      if(data) {
+        console.log(data)
+        setTeachersInfo(data.data)
+    setLoadingStatement(true)
+    }
+    else setLoadingStatement(false)
+})
 }, [])
 useEffect(() => {
 conditionCarouselEl.current.scrollLeft = conditionPage * conditionCarouselEl.current.offsetWidth
@@ -129,7 +141,8 @@ conditionCarouselEl.current.scrollLeft = conditionPage * conditionCarouselEl.cur
 </div>
                     <form onSubmit={async(e) => {
                         e.preventDefault()
-                       if(firstname.length > 0 && telephone.length > 8){ const response = await fetch('http://localhost:5000/new/students',{
+                       if(firstname.length > 0 && telephone.length > 8){ 
+                        const response = await fetch(hosting +'/new/students',{
                             method: "POST",
                             body: JSON.stringify({
                                 firstname,
@@ -144,13 +157,13 @@ conditionCarouselEl.current.scrollLeft = conditionPage * conditionCarouselEl.cur
                             alert(data.data)
                         }}
                     }}>
-                        <input value={firstname} onInput={(e) => {
+                        <input required value={firstname} onInput={(e) => {
                             setFirstname(e.target.value)
                         }} type="text" placeholder='Ваше имя'/>
-                        <input value={telephone.length > 9 ? telephone.slice(0, 9) : telephone} onInput={(e) => {
+                        <input required value={telephone.length > 9 ? telephone.slice(0, 9) : telephone} onInput={(e) => {
                         setTelephone(e.target.value)
                         }} type="text" placeholder='Ваше телефон'/>
-                    <button style={firstname.length > 0 && telephone.length > 8 ? {background: 'black', color: "white"}: {background: "rgb(222, 222, 222)"}} disabled className='btn-submit-application'>Записаться</button>
+                    <button style={firstname.length > 0 && telephone.length > 8 ? {background: 'black', color: "white"}: {background: "rgb(222, 222, 222)"}} className='btn-submit-application'>Записаться</button>
                     </form>
                 </div>
             </div>
@@ -187,7 +200,7 @@ setRegisterForm(true)
                         </div>
                         <form className='form-register-popup' onSubmit={async(e) => {
                         e.preventDefault()
-                       if(firstname.length > 0 && telephone.length > 8){ const response = await fetch('http://localhost:5000/new/students',{
+                       if(firstname.length > 0 && telephone.length > 8){ const response = await fetch(hosting +'/new/students',{
                             method: "POST",
                             body: JSON.stringify({
                                 firstname,
@@ -208,7 +221,7 @@ setRegisterForm(true)
                         <input value={telephone.length > 9 ? telephone.slice(0, 9) : telephone} onInput={(e) => {
                         setTelephone(e.target.value)
                         }} type="text" placeholder='Ваше телефон'/>
-                    <button style={firstname.length > 0 && telephone.length > 8 ? {background: 'black', color: "white"}: {background: "rgb(222, 222, 222)"}} disabled className='btn-submit-application'>Записаться</button>
+                    <button style={firstname.length > 0 && telephone.length > 8 ? {background: 'black', color: "white"}: {background: "rgb(222, 222, 222)"}} className='btn-submit-application'>Записаться</button>
                     </form>
                     </div>
                     </div>
@@ -228,6 +241,7 @@ setRegisterForm(true)
                     </div>
                     <h2 id="team">НАШИ УЧИТЕЛЯ</h2>
                     <div className='swiper-computer'>
+       {loadingStatement ? 
                     <Swiper
     // install Swiper modules
     modules={[Navigation, Pagination,  A11y]}
@@ -240,7 +254,7 @@ setRegisterForm(true)
     onSlideChange={() => console.log('slide change')}
   >
 
-      {teachersInfo.length > 0 ? teachersInfo.map((e, index) => 
+      { teachersInfo.map((e, index) => 
           <SwiperSlide key={e._id} className='slide'>
         <div key={e._id} className='carousel-slide-box'>
             <div className='teacher-img-box'>
@@ -251,10 +265,13 @@ setRegisterForm(true)
             </div>
         </div>
     </SwiperSlide>
-      ) : null}
-    </Swiper>
+      )  }
+    </Swiper> : <div style={{width: '100%', height: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>}
     </div>
     <div className='swiper-tablet'>
+        {loadingStatement ? 
     <Swiper 
     // install Swiper modules
     modules={[Navigation, Pagination,  A11y]}
@@ -267,7 +284,7 @@ setRegisterForm(true)
     onSlideChange={() => console.log('slide change')}
   >
 
-      {teachersInfo.length > 0 ? teachersInfo.map((e, index) => 
+      {teachersInfo.map((e, index) => 
           <SwiperSlide key={e._id} className='slide'>
         <div className='carousel-slide-box'>
             <div className='teacher-img-box'>
@@ -278,10 +295,15 @@ setRegisterForm(true)
             </div>
         </div>
     </SwiperSlide>
-      ) : null}
-    </Swiper>
+      ) }
+      </Swiper>
+:    <div style={{width: '100%', height: "100vh", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+<div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+}
     </div>
     <div className='swiper-phone'>
+    {loadingStatement ?
     <Swiper
     // install Swiper modules
     modules={[Navigation, Pagination,  A11y]}
@@ -294,7 +316,7 @@ setRegisterForm(true)
     onSlideChange={() => console.log('slide change')}
   >
 
-      {teachersInfo.length > 0 ? teachersInfo.map((e, index) => 
+      {teachersInfo.map((e, index) => 
           <SwiperSlide key={e._id} className='slide'>
         <div className='carousel-slide-box'>
             <div className='teacher-img-box'>
@@ -305,8 +327,11 @@ setRegisterForm(true)
             </div>
         </div>
     </SwiperSlide>
-      ) : null}
+      )} 
     </Swiper>
+    : <div style={{width: '100%', height: "100vh", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+    <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>}
     </div>
     <h2 id='price'>ЦЕНЫ</h2>
     <div className="price-data-box">
@@ -362,7 +387,7 @@ setConditionPage(0)
 <form onSubmit={async e => {
          e.preventDefault()
          if(firstname.length > 0 && telephone.length > 8){ 
-            const response = await fetch('http://localhost:5000/new/students',{
+            const response = await fetch(hosting +'/new/students',{
               method: "POST",
               body: JSON.stringify({
                   firstname,
@@ -380,17 +405,13 @@ setConditionPage(0)
     <input value={firstname} onInput={(e) => {
 setFirstname(e.target.value)
 }}  type="text" placeholder='Ваше имя' />
-    <input value={telephone} onInput={(e) => {
+    <input value={telephone.length > 9 ? telephone.slice(0, 9) : telephone} onInput={(e) => {
                             setTelephone(e.target.value)
                         }}  type="text" placeholder='Ваше телефон' />
     <button>Записаться</button>
 </form>
         </div>
     </div>
-    <footer>
-        <h2>Наше место положение <i style={{color: "white"}}><ImLocation2/></i></h2>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2997.951500333577!2d69.20646212629943!3d41.28815999336483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1smirzo%20ulug&#39;bek%20metro!5e0!3m2!1sru!2s!4v1692009348515!5m2!1sru!2s"></iframe>
-    </footer>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import './Registration.css'
-import logo from '../../images/nextgen-logo.png'
+import logo from '../../images/logo-nextgen.png'
 import { useState } from 'react'
 
 const Registration = () => {

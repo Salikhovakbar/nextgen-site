@@ -1,12 +1,14 @@
 import './Header.css'
-import logo from '../../images/nextgen-logo.png'
-import { Link } from 'react-router-dom'
+import logo from '../../images/logo-nextgen.png'
+import { Link, useLocation } from 'react-router-dom'
 import { FaUserAlt } from 'react-icons/fa'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
 import { useState } from 'react'
 const Header = () => {
   const [sidebar, setSidebar] = useState(false)
+  const { pathname } = useLocation()
+  if(pathname.includes("/registration")) return
   return (
     <header>
       <div style={sidebar ? {display: 'block'} : {display: 'none'}} onClick={() => {
@@ -48,9 +50,9 @@ const Header = () => {
       </ul>
       <div className='header-contact-box'>
         <div className="header-contact-icons">
-         <Link to='student-login'><i><FaUserAlt/></i></Link> <a href='tel:+998787777707'><i><BsFillTelephoneFill/></i></a>
+         <Link to='student-login'><i><FaUserAlt/></i></Link> <a href='tel:+998907888875'><i><BsFillTelephoneFill/></i></a>
         </div>
-        <b>78 777 77 07</b>
+        <b>+998907888875</b>
       </div>
     </div>
     </header>
