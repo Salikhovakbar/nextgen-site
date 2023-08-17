@@ -16,7 +16,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import genEn from '../../images/general-english.jpg'
+import genEn from '../../images/general-english.png'
 import ieltsLogo from '../../images/IELTS.png'
 const Main = () => {
     const [firstname,setFirstname] = useState('')
