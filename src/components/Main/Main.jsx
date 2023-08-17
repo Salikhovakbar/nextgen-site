@@ -186,7 +186,7 @@ setRegisterForm(true)
     )
 }
             </div>
-            <div className="call-box"><a href="tel:+998787777707"><BiSolidPhoneCall/></a></div>
+            <div className="call-box"><a href="tel:+998907888875"><BiSolidPhoneCall/></a></div>
         </div>
                     <div style={registerForm? {display: 'flex'} : {display: 'none'}} className='registration-application-container'>
                     <div onClick={() => {
