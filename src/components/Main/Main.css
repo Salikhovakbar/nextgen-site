@@ -92,7 +92,6 @@
 
 .application-box-top > p{
     font-size: 22px;
-    text-align: left;
     margin-bottom: 30px;
     color: #363435;
     font-weight: 500;
@@ -129,7 +128,12 @@
     outline: none;
 }
 
-.application-box  h2,p{
+.application-box  h2{
+    color: white;
+    max-width: 260px;
+}
+
+.application-box  p{
     color: white;
     max-width: 260px;
 }

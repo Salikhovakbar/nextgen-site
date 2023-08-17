@@ -2,6 +2,7 @@ import './App.css';
 import Registration from './routes/Registration/Registration';
 import { Route } from 'react-router-dom';
 import Main from './routes/Main/Main';
+import Login from './routes/Login/Login';
 function App() {
   return (
     <div className="App">
@@ -10,6 +11,9 @@ function App() {
 </Route>
 <Route exact path='/registration'>
 <Registration/>
+</Route>
+<Route path='/login/:route'>
+<Login/>
 </Route>
     </div>
   );

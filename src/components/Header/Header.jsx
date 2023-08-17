@@ -50,7 +50,7 @@ const Header = () => {
       </ul>
       <div className='header-contact-box'>
         <div className="header-contact-icons">
-         <Link to='student-login'><i><FaUserAlt/></i></Link> <a href='tel:+998907888875'><i><BsFillTelephoneFill/></i></a>
+         <Link to='/login/students-login'><i><FaUserAlt/></i></Link> <a href='tel:+998907888875'><i><BsFillTelephoneFill/></i></a>
         </div>
         <b>+998907888875</b>
       </div>

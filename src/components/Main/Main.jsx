@@ -64,22 +64,22 @@ const mediaApps = [
     {
         media: 'Instagram',
         icon: <BsInstagram/>,
-        link: ""
+        link: "https://instagram.com/stories/nextgen_english_school"
     },
     {
         media: 'Facebook',
         icon: <GrFacebook/>,
-        link: ""
+        link: "https://facebook.com/stories/nextgen_english_school"
     },
     {
         media: 'YouTube',
         icon: <FaYoutube/>,
-        link: ""
+        link: "https://www.youtube.com/@nextgen_english_school"
     },
     {
         media: 'Tik-Tok',
         icon: <FaTiktok/>,
-        link: ""
+        link: "https://www.tiktok.com/@nextgenengliadmin"
     }
 ];
 const whyToChooseUs = [
