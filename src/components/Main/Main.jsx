@@ -6,7 +6,7 @@ import { GrFacebook } from 'react-icons/gr'
 import { BsInstagram, BsCalendarFill } from 'react-icons/bs'
 import { GiTeacher } from 'react-icons/gi'
 import { MdCastForEducation, MdMobileFriendly } from 'react-icons/md'
-import { AiFillBook } from'react-icons/ai'
+import { AiFillBook, AiOutlineRight } from'react-icons/ai'
 import { HiUserGroup } from 'react-icons/hi'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -130,6 +130,9 @@ useEffect( () => {
 useEffect(() => {
 conditionCarouselEl.current.scrollLeft = conditionPage * conditionCarouselEl.current.offsetWidth
 }, [conditionPage])
+useEffect(() => {
+window.scrollTo({top: 0})
+}, [])
     return (
     <div>
         <div className="main-container">
@@ -186,7 +189,12 @@ setRegisterForm(true)
     )
 }
             </div>
-            <div className="call-box"><a href="tel:+998907888875"><BiSolidPhoneCall/></a></div>
+            <div className='call-box'>
+            <div onClick={() => {
+                window.scrollTo({top: 0})
+            }} className='back-to-top'><AiOutlineRight/></div>
+            <div><a href="tel:+998907888875"><BiSolidPhoneCall/></a></div>
+        </div>
         </div>
                     <div style={registerForm? {display: 'flex'} : {display: 'none'}} className='registration-application-container'>
                     <div onClick={() => {
