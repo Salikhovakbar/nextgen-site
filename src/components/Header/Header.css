@@ -11,7 +11,7 @@ header{
     z-index: 3;
 }
 .header-box{
-    width: 80%;
+    width: 85%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -129,10 +129,15 @@ width: 100%;
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 35%;
 }
 
 .header-contact-icons{
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .header-contact-icons i{
@@ -144,7 +149,52 @@ width: 100%;
     cursor: pointer;
 }
 
-.header-contact-box > b{
+.select-languages-box{
+width: 50%;
+height: 100%;
+display: flex;
+justify-content: center;
+position: relative;
+border-radius: 7px;
+padding: 10px 0 ;
+background: black;
+color: white;
+cursor: pointer;
+}
+
+.languages-option-box{
+    width: 100%;
+    display: none;
+    position: absolute;
+    bottom: -70%;
+    background-color: black;
+    right: 0;
+}
+
+.select-languages-box:hover .languages-option-box{
+    display: block;
+}
+
+.languages-option-box > div{
+    width: 100%;
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.languages-option-box > div:hover{
+    background: gray;
+}
+
+.header-phone-number-box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.header-phone-number-box > b{
     text-decoration: underline;
 }
 
@@ -159,26 +209,39 @@ width: 100%;
     .header-ul-options{
         display: none;
     }
-    .header-contact-icons a:last-child{
+    .header-phone-icon{
         display: none;
     }
-    .header-contact-box > b{
+    .header-contact-icons{
+        justify-content: space-around;
+    }
+    .header-contact-box b{
         display: none;
     }
 }
 
 
 @media only screen and (max-width: 770px){
+    .header-box{
+        width: 100%;
+    }
     .header-logo{
-        min-width: 27%;
+        min-width: 40%;
     }
     .side-bar-box{
         width: 50%;
+    }
+    .header-contact-box{
+        width: 30%;
+    }
+    .select-languages-box{
+        width: 70%;
+        font-size: 14px;
     }
 }
 
 @media only screen and (max-width: 500px){
     .header-logo{
-        width: 30%;
+        width: 40%;
     }
 }
