@@ -11,7 +11,7 @@ header{
     z-index: 3;
 }
 .header-box{
-    width: 85%;
+    width: 90%;
     height: 100%;
     display: flex;
     align-items: center;

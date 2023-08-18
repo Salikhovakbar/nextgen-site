@@ -136,12 +136,10 @@
 .application-box  p{
     color: white;
     max-width: 260px;
-}
-
-.application-box p{
     font-weight: 400;
     font-size: 18px;
     margin: 10px 0;
+    text-align: left;
 }
 
 .application-box input{
@@ -726,13 +724,20 @@ align-items: center;
         font-size: 20px;
     }
     .social-network-apps-box{
-        min-width: 30%;
+        min-width: 35%;
     }   
     .about-box{
         height: 220vh;
         grid-template-columns: 1fr;
         grid-template-rows: repeat(6, 1fr);
     }
+    .call-box > div:first-child{
+        padding: 10px;
+    }
+    
+    .call-box > div:last-child{
+        padding: 10px 12px;
+    }    
     .swiper-computer{
         display: none;
     }

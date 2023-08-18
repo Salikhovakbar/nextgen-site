@@ -4,12 +4,97 @@ import { Link, useLocation } from 'react-router-dom'
 import { FaUserAlt } from 'react-icons/fa'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { AiOutlineMenu, AiOutlineClose, AiOutlineGlobal } from 'react-icons/ai'
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
+import { useDispatch } from 'react-redux';
 const Header = () => {
+  const dispatch = useDispatch()
   const [sidebar, setSidebar] = useState(false)
-  const [countLanguage,setCountLanguage] = useState(0)
-  const languages = ['Русский', 'Uzbek']
+  const [countLanguage,setCountLanguage] = useState(localStorage.getItem('lan_index') || 0)
+  const languages = ['Русский', "O'zbekcha"]
   const { pathname } = useLocation()
+//   const headerLiLanguages = [
+//     {
+// language: 'русский',
+// headerLiOptions: [
+//   {link: "#about",
+//   text:"О школе"
+// },
+//   {
+//     link: "#team",
+//     text:"Команда"
+//   },
+//   {
+//     link: "#price",
+//     text:"Цены"
+//   },
+//   {
+//     link: "#galery",
+//     text: "Галерея"
+//   },
+//   {
+//     link: "#public",
+//     text: "Публичная оферта"
+//   },
+//   {
+//     link: "#vacancy",
+//     text: "Вакансии"
+//   }
+//     ]
+//     },
+//     {
+//       language: "o'zbekcha",
+//       headerLiOptions: [
+//         {link: "#about",
+//         text:"Maktab haqida"
+//       },
+//         {
+//           link: "#team",
+//           text:"Jamoa"
+//         },
+//         {
+//           link: "#price",
+//           text:"Narxlar"
+//         },
+//         {
+//           link: "#galery",
+//           text: "Galereya"
+//         },
+//         {
+//           link: "#public",
+//           text: "Ommaviy taklif"
+//         },
+//         {
+//           link: "#vacancy",
+//           text: "Bo'sh ish o'rinlari"
+//         }
+//           ]
+//     }
+//   ]
+dispatch({type: 'LANGUAGE', data: languages[countLanguage]})
+  let headerLiOptions = []
+  if(languages[countLanguage].toLowerCase() === 'русский'){
+    headerLiOptions = [
+      "О школе",
+      "Команда",
+"Цены",
+"Галерея",
+"Публичная оферта",
+"Вакансии"
+    ]
+  }
+  else if(languages[countLanguage].toLowerCase() === "o'zbekcha"){
+    headerLiOptions = [
+      "Maktab haqida",
+      "Jamoa",
+      "Narxlar",
+       "Galereya",
+"Ommaviy taklif",
+"Bo'sh ish o'rinlari",
+    ]
+  }
+useEffect(()=> {
+dispatch({type: 'LANGUAGE', data: languages[countLanguage]})
+}, [countLanguage])
   if(pathname.includes("/registration")) return
   return (
     <header>
@@ -23,12 +108,12 @@ const Header = () => {
           }}><AiOutlineClose/></i>
         </div>
         <ul className='sidebar-ul'>
-        <li className='sidebar-li-option'><a href='#about'>О школе</a></li>
-        <li className='sidebar-li-option'><a href='#team'>Команда</a></li>
-        <li className='sidebar-li-option'><a href='#price'>Цены</a></li>
-        <li className='sidebar-li-option'><a href='#galery'>Галерея</a></li>
-        <li className='sidebar-li-option'><a href='#public'>Публичная офёрта</a></li>
-        <li className='sidebar-li-option'><a href='#vacancy'>Вакансии</a></li>
+        <li className='header-li-option'><a href='#about'>{headerLiOptions[0]}</a></li>
+        <li className='header-li-option'><a href='#team'>{headerLiOptions[1]}</a></li>
+        <li className='header-li-option'><a href='#price'>{headerLiOptions[2]}</a></li>
+        <li className='header-li-option'><a href='#galery'>{headerLiOptions[3]}</a></li>
+        <li className='header-li-option'><a href='#public'>{headerLiOptions[4]}</a></li>
+        <li className='header-li-option'><a href='#vacancy'>{headerLiOptions[5]}</a></li>
         </ul>
       </div>
     <div className='header-box'>
@@ -43,20 +128,21 @@ const Header = () => {
         <img src={logo} alt="" />
       </div>
       <ul className='header-ul-options'>
-        <li className='header-li-option'><a href='#about'>О школе</a></li>
-        <li className='header-li-option'><a href='#team'>Команда</a></li>
-        <li className='header-li-option'><a href='#price'>Цены</a></li>
-        <li className='header-li-option'><a href='#galery'>Галерея</a></li>
-        <li className='header-li-option'><a href='#public'>Публичная офёрта</a></li>
-        <li className='header-li-option'><a href='#vacancy'>Вакансии</a></li>
+      <li className='header-li-option'><a href='#about'>{headerLiOptions[0]}</a></li>
+        <li className='header-li-option'><a href='#team'>{headerLiOptions[1]}</a></li>
+        <li className='header-li-option'><a href='#price'>{headerLiOptions[2]}</a></li>
+        <li className='header-li-option'><a href='#galery'>{headerLiOptions[3]}</a></li>
+        <li className='header-li-option'><a href='#public'>{headerLiOptions[4]}</a></li>
+        <li className='header-li-option'><a href='#vacancy'>{headerLiOptions[5]}</a></li>
       </ul>
       <div className='header-contact-box'>
         <div className="header-contact-icons">
          <Link to='/login/students-login'><i><FaUserAlt/></i></Link> <a className='header-phone-icon' href='tel:+998907888875'><i><BsFillTelephoneFill/></i></a> <div className='select-languages-box'><AiOutlineGlobal/>{languages[countLanguage]} <div className='languages-option-box'>
           {languages.map((e,index) => 
           <div onClick={() => {
+            localStorage.setItem('lan_index', index)
             setCountLanguage(index)
-          }} style={countLanguage === index? {display: 'none'}: null} key={index}>
+          }} style={Number(countLanguage) === index? {display: 'none'}: null} key={index}>
           <span>{e}</span>
           </div>  
           )}

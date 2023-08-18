@@ -18,16 +18,23 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import genEn from '../../images/general-english.png'
 import ieltsLogo from '../../images/IELTS.png'
+import { useSelector } from 'react-redux'
 const Main = () => {
-    const [firstname,setFirstname] = useState('')
+ const translation = useSelector(({languageShift}) => languageShift)
+ const [firstname,setFirstname] = useState('')
     const [telephone, setTelephone] = useState('')
     const [mediaCount, setMediaCount] = useState('')
-const [registerForm, setRegisterForm] = useState(false)
+    const [registerForm, setRegisterForm] = useState(false)
 const [teachersInfo, setTeachersInfo] = useState('')
 const conditionCarouselEl = useRef()
 const [conditionPage, setConditionPage] = useState(0)
 const [loadingStatement, setLoadingStatement]= useState(false)
-const conditions =[
+let conditions=[]
+let headingConditions = []
+let whyToChooseUs = []
+let registrationText = []
+if(translation.language.toLowerCase() === 'русский'){
+conditions =[
     {
         type: 'general english',
         condition: [
@@ -55,34 +62,8 @@ const conditions =[
         ]
     }
 ]
-const mediaApps = [
-    {
-        media: 'Telegram',
-        icon: <BiLogoTelegram/>,
-        link: "https://t.me/nextgen_english_school"
-    },
-    {
-        media: 'Instagram',
-        icon: <BsInstagram/>,
-        link: "https://instagram.com/stories/nextgen_english_school"
-    },
-    {
-        media: 'Facebook',
-        icon: <GrFacebook/>,
-        link: "https://facebook.com/stories/nextgen_english_school"
-    },
-    {
-        media: 'YouTube',
-        icon: <FaYoutube/>,
-        link: "https://www.youtube.com/@nextgen_english_school"
-    },
-    {
-        media: 'Tik-Tok',
-        icon: <FaTiktok/>,
-        link: "https://www.tiktok.com/@nextgenengliadmin"
-    }
-];
-const whyToChooseUs = [
+headingConditions = ['O НАШЕМ УЧЕБНОМ ЦЕНТРЕ','НАШИ УЧИТЕЛЯ','ЦЕНЫ']
+whyToChooseUs = [
     {
 icon: <GiTeacher/>,
 title: 'Учителя',
@@ -114,13 +95,120 @@ title: 'Co-working zone',
 supportingSentence: 'Также, шанс посещать co-working zone, где вы сможете присоединится своим однокурсникам'
 }
 ]
+registrationText = [
+    "Записаться на первый урок!",
+    "Оставьте заявку и наш менеджер Свяжется с вами.",
+    'Ваше имя',
+    "Ваше телефон",
+    "Записаться"
+]
+}
+
+else if(translation.language.toLowerCase() === "o'zbekcha"){
+ conditions =[
+        {
+            type: 'general english',
+            condition: [
+                'Guruhda 10 (±2) oquvchi',
+                'Imzo kitobi',
+                'Korporativ daftar Grammar и Vocabulary',
+                'Mobil ilova',
+                'Servis Teaching Assistant and Speaking Assistant (ikkita qoshimcha oqituvchi)',
+                'Speaking Club (yakshanba kunlari)',
+                'Guruh darslari (550.000 UZS)',
+                "Individual darslar (1.650.000 UZS)"
+            ]
+        },{
+            type: 'ielts',
+            condition: [
+                'Guruhda 10 (±2) oquvchi',
+                'Imzo kitobi',
+                'Korporativ daftar Grammar и Vocabulary',
+                'Mobil ilova',
+                'Servis Teaching Assistant and Speaking Assistant (ikkita qoshimcha oqituvchi)',
+                'Speaking Club (yakshanba kunlari)',
+                'Mock Exam yakshanba kunlari(Speaking and Writing evaluation)',
+                'Guruh darslari (650.000 UZS)',
+                "Individual darslar (2.000.000 UZS)"
+            ]
+        }
+    ]   
+    headingConditions = ["BIZNING INGLIZ TILI O'QUV MARKAZIMIZ HAQIDA", "O'QITUVCHILARIMIZ",
+    "Narxlar"
+]
+whyToChooseUs = [
+    {
+icon: <GiTeacher/>,
+title: "O'qituvchilar",
+supportingSentence: "O'qituvchilar sizga yordam berishadi(main teacher, teaching assistant, speaking assistant)"
+},
+{
+icon: <BsCalendarFill/>,
+title: 'Kundalik tashrif',
+supportingSentence: 'Darslardan tashqari siz kovorking zonasiga tashrif buyurishingiz mumkin'
+},
+{
+icon: <MdCastForEducation/>,
+title: 'Britain education system (Pearson education)',
+supportingSentence: "Bizning ta'limimiz Oksford universiteti matbuoti tizimiga asoslangan"
+},
+{
+icon: <AiFillBook/>,
+title: 'Bepul markali kitoblar (yuqori sifatli)',
+supportingSentence: "NEXTGEN o'z o'quvchilarini bepul sifatli kitoblar bilan ta'minlaydi "
+},
+{
+icon: <MdMobileFriendly/>,
+title: 'Mobile app',
+supportingSentence: 'Bizning vazifalarimizni bajarish qobiliyati ilova'
+},
+{
+icon: <HiUserGroup/>,
+title: 'Co-working zone',
+supportingSentence: "Shuningdek, coworking zone-ga tashrif buyurish imkoniyati mavjud, u erda siz hamkasblaringizga qo'shilishingiz mumkin"
+}
+]
+registrationText=[
+    "Birinchi darsga yoziling!",
+    "So'rov qoldiring va menejerimiz siz bilan bog'lanadi.",
+    "Ismingiz",
+    "Telefon raqamingiz",
+    "Ro'yxatdan o'tish"
+]
+}
+const mediaApps = [
+    {
+        media: 'Telegram',
+        icon: <BiLogoTelegram/>,
+        link: "https://t.me/nextgen_english_school"
+    },
+    {
+        media: 'Instagram',
+        icon: <BsInstagram/>,
+        link: "https://instagram.com/stories/nextgen_english_school"
+    },
+    {
+        media: 'Facebook',
+        icon: <GrFacebook/>,
+        link: "https://facebook.com/stories/nextgen_english_school"
+    },
+    {
+        media: 'YouTube',
+        icon: <FaYoutube/>,
+        link: "https://www.youtube.com/@nextgen_english_school"
+    },
+    {
+        media: 'Tik-Tok',
+        icon: <FaTiktok/>,
+        link: "https://www.tiktok.com/@nextgenengliadmin"
+    }
+];
 const hosting = 'http://localhost:5000';
 useEffect( () => {
    fetch(hosting + '/teachers-data')
   .then(response => response.json())
   .then(data => {
       if(data) {
-        console.log(data)
         setTeachersInfo(data.data)
     setLoadingStatement(true)
     }
@@ -139,8 +227,8 @@ window.scrollTo({top: 0})
             <div className='register-box'>
                 <div className='application-box'>
 <div>
-<h2>Записаться на первый урок!</h2>
-<p>Оставьте заявку и наш менеджер Свяжется с вами.</p>
+<h2>{registrationText[0]}</h2>
+<p>{registrationText[1]}</p>
 </div>
                     <form onSubmit={async(e) => {
                         e.preventDefault()
@@ -162,18 +250,18 @@ window.scrollTo({top: 0})
                     }}>
                         <input required value={firstname} onInput={(e) => {
                             setFirstname(e.target.value)
-                        }} type="text" placeholder='Ваше имя'/>
+                        }} type="text" placeholder={registrationText[2]}/>
                         <input required value={telephone.length > 9 ? telephone.slice(0, 9) : telephone} onInput={(e) => {
                         setTelephone(e.target.value)
-                        }} type="text" placeholder='Ваше телефон'/>
-                    <button style={firstname.length > 0 && telephone.length > 8 ? {background: 'black', color: "white"}: {background: "rgb(222, 222, 222)"}} className='btn-submit-application'>Записаться</button>
+                        }} type="text" placeholder={registrationText[3]}/>
+                    <button style={firstname.length > 0 && telephone.length > 8 ? {background: 'black', color: "white"}: {background: "rgb(222, 222, 222)"}} className='btn-submit-application'>{registrationText[4]}</button>
                     </form>
                 </div>
             </div>
             <div className="main-btn-box">
             <button onClick={() => {
 setRegisterForm(true)
-            }} className='main-btn'>Записаться</button>
+            }} className='main-btn'>{registrationText[4]}</button>
             </div>
             <div className='social-network-apps-box'>
 {
@@ -233,7 +321,7 @@ setRegisterForm(true)
                     </form>
                     </div>
                     </div>
-                    <h2 id='about'>О НАШЕМ УЧЕБНОМ ЦЕНТРЕ АНГЛИЙСКОГО ЯЗЫКА</h2>
+                    <h2 id='about'>{headingConditions[0]}</h2>
                     <div className="about-box">
 {
     whyToChooseUs.map((e,index) => 
@@ -247,7 +335,7 @@ setRegisterForm(true)
     )
 }
                     </div>
-                    <h2 id="team">НАШИ УЧИТЕЛЯ</h2>
+                    <h2 id="team">{headingConditions[1]}</h2>
                     <div className='swiper-computer'>
        {loadingStatement ? 
                     <Swiper
@@ -258,8 +346,6 @@ setRegisterForm(true)
     navigation
     pagination={{ clickable: true }}
     scrollbar={{ draggable: true }}
-    onSwiper={(swiper) => console.log(swiper)}
-    onSlideChange={() => console.log('slide change')}
   >
 
       { teachersInfo.map((e, index) => 
@@ -288,8 +374,6 @@ setRegisterForm(true)
     navigation
     pagination={{ clickable: true }}
     scrollbar={{ draggable: true }}
-    onSwiper={(swiper) => console.log(swiper)}
-    onSlideChange={() => console.log('slide change')}
   >
 
       {teachersInfo.map((e, index) => 
@@ -320,8 +404,6 @@ setRegisterForm(true)
     navigation
     pagination={{ clickable: true }}
     scrollbar={{ draggable: true }}
-    onSwiper={(swiper) => console.log(swiper)}
-    onSlideChange={() => console.log('slide change')}
   >
 
       {teachersInfo.map((e, index) => 
@@ -341,7 +423,7 @@ setRegisterForm(true)
     <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>}
     </div>
-    <h2 id='price'>ЦЕНЫ</h2>
+    <h2 id='price'>{headingConditions[2]}</h2>
     <div className="price-data-box">
         <div className="price-group-choices">
             <div className="choices-box">
@@ -412,11 +494,11 @@ setConditionPage(0)
           }}>
     <input value={firstname} onInput={(e) => {
 setFirstname(e.target.value)
-}}  type="text" placeholder='Ваше имя' />
+}}  type="text" placeholder={registrationText[2]} />
     <input value={telephone.length > 9 ? telephone.slice(0, 9) : telephone} onInput={(e) => {
                             setTelephone(e.target.value)
-                        }}  type="text" placeholder='Ваше телефон' />
-    <button>Записаться</button>
+                        }}  type="text" placeholder={registrationText[3]} />
+    <button>{registrationText[4]}</button>
 </form>
         </div>
     </div>
