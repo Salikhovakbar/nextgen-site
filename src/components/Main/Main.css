@@ -758,4 +758,26 @@ align-items: center;
         font-size: 18px;
         font-weight: 600;
     }
+    .register-container > div:first-child {
+        flex-direction: column;
+    }
+    .register-container > div:first-child > div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .register-container > div:first-child > div:first-child{
+        width: 100%;
+    }
+    .register-container > div:first-child h3{
+        max-width: 100%;
+        font-size: 16px;
+    }
+    .register-container > div:first-child > div:last-child{
+        width: 100%;
+    }
+    .register-container > div:first-child b{
+        max-width: 90%;
+        font-size: 13px;
+    }
 }

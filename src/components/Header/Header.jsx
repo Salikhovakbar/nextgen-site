@@ -12,85 +12,71 @@ const Header = () => {
   const [countLanguage,setCountLanguage] = useState(localStorage.getItem('lan_index') || 0)
   const languages = ['Русский', "O'zbekcha"]
   const { pathname } = useLocation()
-//   const headerLiLanguages = [
-//     {
-// language: 'русский',
-// headerLiOptions: [
-//   {link: "#about",
-//   text:"О школе"
-// },
-//   {
-//     link: "#team",
-//     text:"Команда"
-//   },
-//   {
-//     link: "#price",
-//     text:"Цены"
-//   },
-//   {
-//     link: "#galery",
-//     text: "Галерея"
-//   },
-//   {
-//     link: "#public",
-//     text: "Публичная оферта"
-//   },
-//   {
-//     link: "#vacancy",
-//     text: "Вакансии"
-//   }
-//     ]
-//     },
-//     {
-//       language: "o'zbekcha",
-//       headerLiOptions: [
-//         {link: "#about",
-//         text:"Maktab haqida"
-//       },
-//         {
-//           link: "#team",
-//           text:"Jamoa"
-//         },
-//         {
-//           link: "#price",
-//           text:"Narxlar"
-//         },
-//         {
-//           link: "#galery",
-//           text: "Galereya"
-//         },
-//         {
-//           link: "#public",
-//           text: "Ommaviy taklif"
-//         },
-//         {
-//           link: "#vacancy",
-//           text: "Bo'sh ish o'rinlari"
-//         }
-//           ]
-//     }
-//   ]
+  const headerLiLanguages = [
+    {
+language: 'русский',
+headerLiOptions: [
+  {link: "#about",
+  text:"О школе"
+},
+  {
+    link: "#team",
+    text:"Команда"
+  },
+  {
+    link: "#price",
+    text:"Цены"
+  },
+  {
+    link: "#galery",
+    text: "Галерея"
+  },
+  {
+    link: "#public",
+    text: "Публичная оферта"
+  },
+  {
+    link: "#vacancy",
+    text: "Вакансии"
+  }
+    ]
+    },
+    {
+      language: "o'zbekcha",
+      headerLiOptions: [
+        {link: "#about",
+        text:"Maktab haqida"
+      },
+        {
+          link: "#team",
+          text:"Jamoa"
+        },
+        {
+          link: "#price",
+          text:"Narxlar"
+        },
+        {
+          link: "#galery",
+          text: "Galereya"
+        },
+        {
+          link: "#public",
+          text: "Ommaviy taklif"
+        },
+        {
+          link: "#vacancy",
+          text: "Bo'sh ish o'rinlari"
+        }
+          ]
+    }
+  ]
 dispatch({type: 'LANGUAGE', data: languages[countLanguage]})
   let headerLiOptions = []
   if(languages[countLanguage].toLowerCase() === 'русский'){
-    headerLiOptions = [
-      "О школе",
-      "Команда",
-"Цены",
-"Галерея",
-"Публичная оферта",
-"Вакансии"
-    ]
+    headerLiOptions = headerLiLanguages.find(e => e.language.toLowerCase() === 'русский').headerLiOptions
   }
   else if(languages[countLanguage].toLowerCase() === "o'zbekcha"){
-    headerLiOptions = [
-      "Maktab haqida",
-      "Jamoa",
-      "Narxlar",
-       "Galereya",
-"Ommaviy taklif",
-"Bo'sh ish o'rinlari",
-    ]
+    headerLiOptions = headerLiLanguages.find(e => e.language.toLowerCase() === "o'zbekcha").headerLiOptions
   }
 useEffect(()=> {
 dispatch({type: 'LANGUAGE', data: languages[countLanguage]})
@@ -108,12 +94,9 @@ dispatch({type: 'LANGUAGE', data: languages[countLanguage]})
           }}><AiOutlineClose/></i>
         </div>
         <ul className='sidebar-ul'>
-        <li className='header-li-option'><a href='#about'>{headerLiOptions[0]}</a></li>
-        <li className='header-li-option'><a href='#team'>{headerLiOptions[1]}</a></li>
-        <li className='header-li-option'><a href='#price'>{headerLiOptions[2]}</a></li>
-        <li className='header-li-option'><a href='#galery'>{headerLiOptions[3]}</a></li>
-        <li className='header-li-option'><a href='#public'>{headerLiOptions[4]}</a></li>
-        <li className='header-li-option'><a href='#vacancy'>{headerLiOptions[5]}</a></li>
+          {headerLiOptions.map((e, index) => 
+        <li key={index} className='sidebar-li-option'><a href={e.link}>{e.text}</a></li>
+          )}
         </ul>
       </div>
     <div className='header-box'>
@@ -128,12 +111,9 @@ dispatch({type: 'LANGUAGE', data: languages[countLanguage]})
         <img src={logo} alt="" />
       </div>
       <ul className='header-ul-options'>
-      <li className='header-li-option'><a href='#about'>{headerLiOptions[0]}</a></li>
-        <li className='header-li-option'><a href='#team'>{headerLiOptions[1]}</a></li>
-        <li className='header-li-option'><a href='#price'>{headerLiOptions[2]}</a></li>
-        <li className='header-li-option'><a href='#galery'>{headerLiOptions[3]}</a></li>
-        <li className='header-li-option'><a href='#public'>{headerLiOptions[4]}</a></li>
-        <li className='header-li-option'><a href='#vacancy'>{headerLiOptions[5]}</a></li>
+      {headerLiOptions.map((e, index) => 
+        <li key={index} className='header-li-option'><a href={e.link}>{e.text}</a></li>
+          )}
       </ul>
       <div className='header-contact-box'>
         <div className="header-contact-icons">

@@ -100,7 +100,8 @@ registrationText = [
     "Оставьте заявку и наш менеджер Свяжется с вами.",
     'Ваше имя',
     "Ваше телефон",
-    "Записаться"
+    "Записаться",
+    "Мы предлагаем пробный урок на курсы английского языка для комфортного знакомства с преподавателеми выбора подходящей программы обучения. Оставьте заявку и мы свяжемся с вами в ближайшее время!"
 ]
 }
 
@@ -173,7 +174,8 @@ registrationText=[
     "So'rov qoldiring va menejerimiz siz bilan bog'lanadi.",
     "Ismingiz",
     "Telefon raqamingiz",
-    "Ro'yxatdan o'tish"
+    "Ro'yxatdan o'tish",
+    "O'qituvchi bilan qulay tanishish uchun ingliz tili kurslarida sinov darsini taklif etamiz va tegishli o'quv dasturini tanlash. So'rov qoldiring va biz tez orada siz bilan bog'lanamiz!"
 ]
 }
 const mediaApps = [
@@ -290,7 +292,7 @@ setRegisterForm(true)
         }}  className="shadow"></div>
                     <div>
                         <div className="application-box-top">
-                            <p>Мы свяжемся с вами в ближайшее время</p><i onClick={() => {
+                            <p style={translation.language.toLowerCase() === "o'zbekcha" ? {fontSize: '16px'}: null}>{registrationText[1]}</p><i onClick={() => {
                                 setRegisterForm(false)
                             }}><FaWindowClose/></i>
                         </div>
@@ -313,11 +315,11 @@ setRegisterForm(true)
                     }}>
                         <input value={firstname} onInput={(e) => {
                             setFirstname(e.target.value)
-                        }} type="text" placeholder='Ваше имя'/>
+                        }} type="text" placeholder={registrationText[2]}/>
                         <input value={telephone.length > 9 ? telephone.slice(0, 9) : telephone} onInput={(e) => {
                         setTelephone(e.target.value)
-                        }} type="text" placeholder='Ваше телефон'/>
-                    <button style={firstname.length > 0 && telephone.length > 8 ? {background: 'black', color: "white"}: {background: "rgb(222, 222, 222)"}} className='btn-submit-application'>Записаться</button>
+                        }} type="text" placeholder={registrationText[3]}/>
+                    <button style={firstname.length > 0 && telephone.length > 8 ? {background: 'black', color: "white"}: {background: "rgb(222, 222, 222)"}} className='btn-submit-application'>{registrationText[4]}</button>
                     </form>
                     </div>
                     </div>
@@ -465,12 +467,10 @@ setConditionPage(0)
     <div className="register-container">
         <div>
             <div>
-            <h3>ЗАПИШИТЕСЬ НА ПЕРВОЕ
-                ЗАНЯТИЕ</h3>
+            <h3>{registrationText[0]}</h3>
                 </div>
                 <div>
-                <b>Мы предлагаем пробный урок на курсы английского языка для комфортного знакомства с преподавателем
-и выбора подходящей программы обучения. Оставьте заявку и мы свяжемся с вами в ближайшее время!</b>
+                <b>{registrationText[5]}</b>
         </div>
         </div>
         <div className='register-input-box'>
