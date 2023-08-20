@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import TeacherHeader from '../../components/TeacherHeader/TeacherHeader'
 const Teacher = () => {
-const dispatch = useDispatch()
-  const [userId, setUserId] = useState('')
+  const hosting = 'http://localhost:5000'
+  const [user, setUser] = useState('')
     useEffect(() => {
 (async() => {
-const response = await fetch('http://localhost:5000/check-token', {
+const response = await fetch(`${hosting}/check-token`, {
     method: 'GET',
     headers: {
         token: localStorage.getItem('token')
@@ -13,15 +13,15 @@ const response = await fetch('http://localhost:5000/check-token', {
 })
 const data = await response.json()
 if(data.status === 404) window.location = '/login/teachers-login'
-setUserId(data.id)
-dispatch({
-  type: 'TOKEN_ID',
-  data: userId
-})
-})()
+else {
+  fetch(`${hosting}/teachers/${data.id}`).then(res => res.json()).then(info => setUser(info.data))
+console.log(user)    
+}})()
     }, [])
   return (
-    <div></div>
+    <>
+<TeacherHeader userInfo={user}/>
+    </>
   )
 }
 

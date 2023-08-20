@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
-import { languageReducer, tokenReducer } from "./reducer";
+import { languageReducer } from "./reducer";
 const joinedReducers = combineReducers({
-    languageShift: languageReducer,
-    id: tokenReducer
+    languageShift: languageReducer
 })
 
 export { joinedReducers }

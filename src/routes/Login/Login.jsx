@@ -76,7 +76,7 @@ ENGLISH SCHOOL</h1>
     }
     else if(data?.status === 200){
         localStorage.setItem('token', data.token)
-        window.location = (route === 'students-login'? '/student-cabinet' : '/teacher-cabinet')
+        window.location = data.route
     }
 }} className='register-form'>
 <input type="text" value={password} onInput={(e) => {

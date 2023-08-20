@@ -20,7 +20,7 @@ function App() {
 <Route path='/student-cabinet'>
 <Student/>
 </Route>
-<Route path='/teacher-cabinet'>
+<Route path='/teacher-cabinet/:route'>
 <Teacher/>
 </Route>
     </>

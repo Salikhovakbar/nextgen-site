@@ -1,0 +1,117 @@
+.teacherHeader{
+    display: flex;
+}
+
+.teacherHeader > div:first-child{
+    width: 13%;
+    height: 100vh;
+    background: black;
+}
+
+.logo_box{
+    width: 100%;
+    height: 15%;
+}
+
+.logo_box > img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.main_box_icons{
+    height: 85%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    overflow-y: auto;
+}
+
+.main_icon_box{
+    height: 14%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main_icon_link{
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.main_icon_link:hover{
+    background: rgb(103, 103, 103);
+}
+
+.active_icon_style{
+    background: rgb(103, 103, 103);
+}
+
+.main_icon_heading{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.teacherHeader > div:last-child{
+    width: 87%;
+}
+
+.header_teacher_cabinet{
+    width: 100%;
+    height: 70px;
+    color: white;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header > div{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.router_name{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+.profile_box{
+    width: 15%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.avatar_img_box{
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.user_profile_avatar{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
