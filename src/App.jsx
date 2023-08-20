@@ -3,9 +3,11 @@ import Registration from './routes/Registration/Registration';
 import { Route } from 'react-router-dom';
 import Main from './routes/Main/Main';
 import Login from './routes/Login/Login';
+import Student from './routes/Student/Student';
+import Teacher from './routes/Teacher/Teacher';
 function App() {
   return (
-    <div className="App">
+    <>
 <Route exact path='/'>
   <Main/>
 </Route>
@@ -15,7 +17,13 @@ function App() {
 <Route path='/login/:route'>
 <Login/>
 </Route>
-    </div>
+<Route path='/student-cabinet'>
+<Student/>
+</Route>
+<Route path='/teacher-cabinet'>
+<Teacher/>
+</Route>
+    </>
   );
 }
 

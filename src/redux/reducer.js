@@ -5,4 +5,11 @@ return { language: action.data }
 return state
 }
 
-export { languageReducer }
+const tokenReducer = (state = {userId: ''}, action) => {
+    if(action.type === 'TOKEN_ID'){
+        return { userId: action.data }
+    }
+    else return state
+}
+
+export { languageReducer, tokenReducer }

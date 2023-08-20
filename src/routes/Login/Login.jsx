@@ -6,6 +6,18 @@ const Registration = () => {
 const [password, setPassword] = useState('')
 const [telephone, setTelephone] = useState('')
 const {route} = useParams()
+if(localStorage.getItem('token')){
+    ;(async() => {
+    const response = await fetch('http://localhost:5000/check-token', {
+        method: 'GET',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+    const data = await response.json()
+    if(data.status === 200) window.location = data.route
+})()
+}
 return (
     <div className='registration-container'>
     <div className="registration-svg-picture">
