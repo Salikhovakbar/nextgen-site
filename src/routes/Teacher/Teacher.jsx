@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import TeacherHeader from '../../components/TeacherHeader/TeacherHeader'
+import TeacherHeader from '../../components/TeacherPage/TeacherPage'
 const Teacher = () => {
   const hosting = 'http://localhost:5000'
   const [user, setUser] = useState('')

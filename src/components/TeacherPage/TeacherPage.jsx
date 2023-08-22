@@ -1,16 +1,22 @@
 import {useState, useEffect} from 'react'
 import logo from '../../images/black-logo.png'
-import c from './TeacherHeader.module.css'
+import c from './TeacherPage.module.css'
 import { NavLink, useParams } from 'react-router-dom'
 import { FaHome, FaTasks } from 'react-icons/fa'
 import { RiGraduationCapFill } from 'react-icons/ri'
 import { TfiCup } from 'react-icons/tfi'
-import { AiOutlineFileDone } from 'react-icons/ai'
+import { AiOutlineFileDone, AiFillWechat } from 'react-icons/ai'
 import { BsBook } from 'react-icons/bs'
 import { FcStatistics } from 'react-icons/fc'
+import { BiSolidBellRing, BiError } from 'react-icons/bi'
+import { GrFlag } from 'react-icons/gr'
+import TeacherMain from '../TeacherMain/TeacherMain'
 const TeacherHeader = ({userInfo}) => {
   const { _id, firstname, lastname, imgLink } = userInfo
   const { route } = useParams()
+  const [iconType, setIconType] = useState('')
+  const [shadowStatement, setShadowStatement] = useState(false)
+  const [studentsData, setStudentsData] = useState([])
   const mainIcons = [
     {text: 'Home',
       route: '/teacher-cabinet/home',
@@ -35,6 +41,16 @@ const TeacherHeader = ({userInfo}) => {
       route: '/teacher-cabinet/tasks',
       icon:<FaTasks/>}
   ] 
+  const headerIcons = [
+    {text: 'complaint',
+      icon: <GrFlag/>},
+    {text: 'sidebar',
+     icon: <BiError/>},
+    {text: 'sidebar',
+    icon :<BiSolidBellRing/>},
+    {text: 'sidebar',
+      icon:<AiFillWechat/>}
+  ]
   return (
     <div className={c.teacherHeader}>
       <div>
@@ -55,12 +71,22 @@ const TeacherHeader = ({userInfo}) => {
       </div>
 </div>
 <div>
-<header className={c.header_teacher_cabinet} style={route.toLowerCase() === 'home' ? {background: 'rgb(0, 103, 207)'} : {background: 'white'}}>
-<div>
+<header className={c.header_teacher_cabinet}>
+<div className={c.header_box}>
 <p className={c.router_name}>
   {route.charAt(0).toUpperCase() + route.slice(1)}
 </p>
-<div className={c.header_control_icons_box}></div>
+<div style={{display: 'flex', alignItems: 'center', width: '80%', justifyContent: 'flex-end'}}>
+<div className={c.header_control_icons_box}>
+  {headerIcons.map((e, index) => 
+    <div onClick={() => {
+      setIconType(e.text)
+      setShadowStatement(true)
+    }} className={c.header_icon_box} key={index}>
+      <span>{e.icon}</span>
+    </div>
+  )}
+</div>
 <div className={c.profile_box}>
   <div className={c.avatar_img_box}>
     <img className={c.user_profile_avatar} src={imgLink} alt="" />
@@ -68,7 +94,14 @@ const TeacherHeader = ({userInfo}) => {
   <span className={c.profile_username}>{firstname}</span>
 </div>
 </div>
+</div>
+<div style={iconType === 'sidebar' ? {right: 0} : {right: '-100%'}} className={c.sidebar_teacher_box}></div>
 </header>
+<div onClick={() => {
+  setShadowStatement(false)
+  setIconType('')
+}} style={shadowStatement ? {display: 'block'} : {display: 'none'}} className={c.shadow}></div>
+{route === 'home' ?<TeacherMain id={_id}/> : null}
 </div>
     </div>
   )
