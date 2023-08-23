@@ -4,16 +4,26 @@ import { PiStudentFill } from 'react-icons/pi'
 import { MdDangerous } from 'react-icons/md'
 import { GiBlackBook } from 'react-icons/gi'
 import { BiBlock } from 'react-icons/bi'
+import { HiDatabase, HiUserGroup } from 'react-icons/hi'
 const TeacherMain = ({id}) => {
     const hosting = 'http://localhost:5000'
   const [studentsData, setStudentsData] = useState([])
-  useEffect(() => {
-;(async () => {
-const responseStudents = await fetch(`${hosting}/students?teacher_id=${id}`)
-const dataStudents = await responseStudents.json()
-setStudentsData(dataStudents.data)
-})()
-  }, [])
+  const [groupDays, setGroupDays] = useState('odd')
+  const [groupsData, setGroupsData] = useState([])
+  const [groupId,setGroupId] = useState('')
+  const [groupStudentsData, setGroupStudentsData] = useState()
+  const [groupsBoxCount, setGroupsBoxCount] = useState(0)
+
+fetch(`${hosting}/students?teacher_id=${id}`)
+.then(response => response.json())
+.then(({data}) => setStudentsData(data))
+
+ fetch(`${hosting}/groups?day=odd&teacher_id=${id}`)
+ .then(response => response.json())
+ .then(({data})=> {
+  setGroupsData(data)
+  setGroupId(data[0]._id)
+})
   const studentsProductivityData = [
     {
       text: 'Active Students',
@@ -56,6 +66,40 @@ setStudentsData(dataStudents.data)
         </div>
     </div>    )
 }
+</div>
+<div className={c.groups_day_box}>
+  <div>
+    <div style={groupDays === 'odd' ? {color: 'white', background: 'black'} : null} onClick={async() => {
+      setGroupDays('odd')
+      const response = await fetch(`${hosting}/groups?day=odd&teacher_id=${id}`)
+      const { data } = await response.json()
+      setGroupsData(data)
+    }}>Odd days</div>
+    <div style={groupDays === 'even' ? {color: 'white', background: 'black'} : null} onClick={async() => {
+      setGroupDays('even')
+      const response = await fetch(`${hosting}/groups?day=even&teacher_id=${id}`)
+      const { data } = await response.json()
+      setGroupsData(data)
+    }}>Even days</div>
+  </div>
+</div>
+<div className={c.groups_box}>
+  {groupsData.map((e, index) => 
+  e.day === groupDays ?
+  <div style={groupsBoxCount === index ? {background: 'rgb(215, 215, 215)'} : null} onClick={()=> {
+    setGroupsBoxCount(index)
+setGroupId(e._id)
+  }} key={e._id}>
+    <span style={{fontSize: '20px'}}><HiUserGroup/></span>
+    <div>
+    <span>GR</span>  <b>{e.group_number}</b>
+      <p>{e.time}</p>
+    </div>
+  </div> : null
+  )}
+</div>
+<div className={c.journal}>
+  
 </div>
     </div>
   )
