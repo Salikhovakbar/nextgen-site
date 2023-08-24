@@ -4,26 +4,33 @@ import { PiStudentFill } from 'react-icons/pi'
 import { MdDangerous } from 'react-icons/md'
 import { GiBlackBook } from 'react-icons/gi'
 import { BiBlock } from 'react-icons/bi'
-import { HiDatabase, HiUserGroup } from 'react-icons/hi'
+import { HiUserGroup } from 'react-icons/hi'
 const TeacherMain = ({id}) => {
     const hosting = 'http://localhost:5000'
   const [studentsData, setStudentsData] = useState([])
-  const [groupDays, setGroupDays] = useState('odd')
+  const [groupDays, setGroupDays] = useState('')
   const [groupsData, setGroupsData] = useState([])
   const [groupId,setGroupId] = useState('')
   const [groupStudentsData, setGroupStudentsData] = useState()
-  const [groupsBoxCount, setGroupsBoxCount] = useState(0)
+  const [groupsBoxCount, setGroupsBoxCount] = useState()
 
 fetch(`${hosting}/students?teacher_id=${id}`)
 .then(response => response.json())
 .then(({data}) => setStudentsData(data))
 
- fetch(`${hosting}/groups?day=odd&teacher_id=${id}`)
- .then(response => response.json())
- .then(({data})=> {
-  setGroupsData(data)
-  setGroupId(data[0]._id)
-})
+useEffect(() =>{fetch(`${hosting}/groups?day=${groupDays}&teacher_id=${id}`)
+.then(response => response.json())
+.then(({data})=> {
+ setGroupsData(data)
+//  setGroupId(data[0]?._id)
+})}, [groupDays])
+useEffect(() => {
+;(async () => {
+const response = await fetch(`${hosting}/students?group_id=${groupId}&teacher_id=${id}`)
+const { data } = await response.json()
+setGroupStudentsData(data)
+})()
+}, [groupId])
   const studentsProductivityData = [
     {
       text: 'Active Students',
@@ -50,7 +57,6 @@ fetch(`${hosting}/students?teacher_id=${id}`)
         number: studentsData.filter(e => e.paid === false && e.active=== true).length || 0
       }
   ]
-
     return (
     <div>
 <div className={c.students_info_productivity_box}>
@@ -70,13 +76,22 @@ fetch(`${hosting}/students?teacher_id=${id}`)
 <div className={c.groups_day_box}>
   <div>
     <div style={groupDays === 'odd' ? {color: 'white', background: 'black'} : null} onClick={async() => {
-      setGroupDays('odd')
+      if(groupDays !== 'odd'){
+        setGroupDays('odd')
+      setGroupStudentsData([])
+      setGroupsBoxCount('')
+
+    }
       const response = await fetch(`${hosting}/groups?day=odd&teacher_id=${id}`)
       const { data } = await response.json()
       setGroupsData(data)
     }}>Odd days</div>
     <div style={groupDays === 'even' ? {color: 'white', background: 'black'} : null} onClick={async() => {
-      setGroupDays('even')
+      if(groupDays !== 'even'){
+        setGroupDays('even')
+      setGroupStudentsData([])
+      setGroupsBoxCount('')
+    }
       const response = await fetch(`${hosting}/groups?day=even&teacher_id=${id}`)
       const { data } = await response.json()
       setGroupsData(data)
@@ -99,7 +114,15 @@ setGroupId(e._id)
   )}
 </div>
 <div className={c.journal}>
-  
+  {
+    groupStudentsData?.length > 0 ?   
+    groupStudentsData.map((e, index) => 
+    <div key={e._id}>
+      {e.firstname}
+    </div>
+    )
+    : null
+  }
 </div>
     </div>
   )

@@ -6,17 +6,19 @@ import { FaHome, FaTasks } from 'react-icons/fa'
 import { RiGraduationCapFill } from 'react-icons/ri'
 import { TfiCup } from 'react-icons/tfi'
 import { AiOutlineFileDone, AiFillWechat } from 'react-icons/ai'
-import { BsBook } from 'react-icons/bs'
+import { BsBook, BsThreeDotsVertical, BsPencilFill } from 'react-icons/bs'
 import { FcStatistics } from 'react-icons/fc'
-import { BiSolidBellRing, BiError } from 'react-icons/bi'
+import { BiSolidBellRing, BiError, BiLogOut} from 'react-icons/bi'
 import { GrFlag } from 'react-icons/gr'
+import { FaRegWindowClose } from 'react-icons/fa'
+import { MdAddAPhoto } from 'react-icons/md'
 import TeacherMain from '../TeacherMain/TeacherMain'
 const TeacherHeader = ({userInfo}) => {
   const { _id, firstname, lastname, imgLink } = userInfo
   const { route } = useParams()
   const [iconType, setIconType] = useState('')
   const [shadowStatement, setShadowStatement] = useState(false)
-  const [studentsData, setStudentsData] = useState([])
+  const [profileChangeBox, setProfileChangeBox] = useState(false)
   const mainIcons = [
     {text: 'Home',
       route: '/teacher-cabinet/home',
@@ -92,6 +94,29 @@ const TeacherHeader = ({userInfo}) => {
     <img className={c.user_profile_avatar} src={imgLink} alt="" />
   </div>
   <span className={c.profile_username}>{firstname}</span>
+  <span className={c.btn_change_profile} onClick={() => {
+   
+  }}><BsThreeDotsVertical/>
+  <div className={c.profile_settings_box}>
+    <div className={c.figure_settings}></div>
+  <div className={c.profile_settings}>
+    <div onClick={() => {
+setProfileChangeBox(true)
+    }}>
+      <div>
+        <span><BsPencilFill/></span>
+        <span className={c.profile_settings_text}>Change profile</span></div>
+    </div>
+    <div onClick={() => {
+      localStorage.removeItem('token')
+    window.location = '/login/teachers-login'  
+    }}>
+      <div>
+      <span className={c.logout_icon}><BiLogOut/></span>
+        <span className={c.profile_settings_text}>Log out</span></div>
+    </div>
+  </div>
+  </div></span>
 </div>
 </div>
 </div>
@@ -100,7 +125,38 @@ const TeacherHeader = ({userInfo}) => {
 <div onClick={() => {
   setShadowStatement(false)
   setIconType('')
-}} style={shadowStatement ? {display: 'block'} : {display: 'none'}} className={c.shadow}></div>
+}} style={shadowStatement ? {display: 'block'} : null} className={c.shadow}></div>
+<div style={profileChangeBox ? {display: 'flex'} : null} className={c.profile_change_container}>
+  <div onClick={() => {
+    setProfileChangeBox(false)
+  }} className={c.profile_shadow}></div>
+  <div className={c.change_profile_box}>
+    <span onClick={() => {
+    setProfileChangeBox(false)
+    }}><FaRegWindowClose/></span>
+    <form onSubmit={async () => {
+      try{
+        const formData = new FormData()
+      }catch(err){
+        alert(err.message)
+      }
+    }}>
+      <div className={c.input_profile_avatar_box}>
+      <div className={c.profile_img_edit}>
+      <input id='input_img_profile' className={c.input_avatar} type="file" />
+      <label className={c.img_edit_label} htmlFor="input_img_profile">
+        <span><MdAddAPhoto/></span>
+      </label>
+      </div>
+      <div className={c.avatar_profile_img_box}>
+        <img src={imgLink} alt="" />
+      </div>
+      </div>
+      <input placeholder='Write your new password' className={c.input_password} type="text" />
+      <button className={c.btn_submit_change_profile}>Submit</button>
+    </form>
+  </div>
+</div>
 {route === 'home' ?<TeacherMain id={_id}/> : null}
 </div>
     </div>
