@@ -13,7 +13,7 @@ const TeacherMain = ({id}) => {
   const [groupId,setGroupId] = useState('')
   const [groupStudentsData, setGroupStudentsData] = useState()
   const [groupsBoxCount, setGroupsBoxCount] = useState()
-
+  const [attendanceData, setAttendanceData] = useState()
 fetch(`${hosting}/students?teacher_id=${id}`)
 .then(response => response.json())
 .then(({data}) => setStudentsData(data))
@@ -29,6 +29,13 @@ useEffect(() => {
 const response = await fetch(`${hosting}/students?group_id=${groupId}&teacher_id=${id}`)
 const { data } = await response.json()
 setGroupStudentsData(data)
+})()
+}, [groupId])
+useEffect(() => {
+  ;(async () => {
+const response = await fetch(`${hosting}/attendance?group_id=${groupId}`)
+const { data } = await response.json()
+setAttendanceData(data)
 })()
 }, [groupId])
   const studentsProductivityData = [
@@ -113,17 +120,20 @@ setGroupId(e._id)
   </div> : null
   )}
 </div>
-<div className={c.journal}>
+<table className={c.journal}>
   {
     groupStudentsData?.length > 0 ?   
     groupStudentsData.map((e, index) => 
-    <div key={e._id}>
-      {e.firstname}
-    </div>
+    <tr key={e._id}>
+      <td>{e.firstname}</td>
+      {attendanceData?.length > 0 ?  attendanceData.map(i =>
+      <td key={i._id}>{i.students_id.includes(e._id) ? 'yes' : 'no'}</td>  
+      ) : null}
+    </tr>
     )
     : null
   }
-</div>
+</table>
     </div>
   )
 }
