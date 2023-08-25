@@ -269,7 +269,7 @@ setRegisterForm(true)
 {
     mediaApps.map((e, index) => 
     <div key={index}
-    style={mediaCount === index ? {marginLeft: 0}: {marginLeft: '70%'}}
+    style={mediaCount === index ? {marginLeft: '-60%'}: null}
     onMouseLeave={() => {
         setMediaCount('')
     }}

@@ -174,7 +174,7 @@
 
 .social-network-apps-box{
     position: fixed;
-    right: 0;
+    right: -10%;
     z-index: 2;
     width: 15%;
 }
@@ -642,6 +642,7 @@ align-items: center;
     }
     .social-network-apps-box{
         min-width: 22%;
+        right: -15%;
     }
     .app-name{
         font-size: 17px;
@@ -725,6 +726,7 @@ align-items: center;
     }
     .social-network-apps-box{
         min-width: 35%;
+        right: -23%;
     }   
     .about-box{
         height: 220vh;
