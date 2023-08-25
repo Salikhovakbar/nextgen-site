@@ -86,7 +86,7 @@ const TeacherHeader = ({userInfo}) => {
   {headerIcons.map((e, index) => 
     <div onClick={() => {
       setIconType(e.text)
-      setShadowStatement(true)
+    if(e.text === 'sidebar')  setShadowStatement(true)
     }} className={c.header_icon_box} key={index}>
       <span>{e.icon}</span>
     </div>
@@ -124,6 +124,14 @@ setProfileChangeBox(true)
 </div>
 </div>
 <div style={iconType === 'sidebar' ? {right: 0} : {right: '-100%'}} className={c.sidebar_teacher_box}></div>
+<div style={iconType === 'complaint' ? {display: 'block'} : null} className={c.complaint_application_container}>
+  <div>
+    <div className={c.complaint_application_box}></div>
+    <div onClick={() => {
+      setIconType('')
+    }} className={c.complaint_application_shadow}></div>
+  </div>
+</div>
 </header>
 <div onClick={() => {
   setShadowStatement(false)
@@ -144,17 +152,18 @@ setProfileChangeBox(true)
       if(inputFile.current.files.length > 0 || newPassword.length > 0){
       if(inputFile.current.files.length > 0) formData.append('avatar', inputFile.current.files[inputFile.current.files.length - 1])
       if(newPassword.length > 0) formData.append('password', newPassword)
-    const response = await fetch(`${hosting}/teachers`,{
+    const response = await fetch(`${hosting}/teachers/${_id}`,{
       method: 'PUT',
       body: formData,
       headers: {
-        'Content-Type': 'application/json charset=UTF-8'
+        token: localStorage.getItem('token')
       }
     })
     const data = await response.json()
-    console.log(data)
     if(data.status === 404) alert(data.error) 
-    else if(data.status === 200) return
+    if(data.status === 200) {alert('Done')
+    window.location.reload()
+  }
     }
 else throw new Error('Please make changes')
       }catch(err){
