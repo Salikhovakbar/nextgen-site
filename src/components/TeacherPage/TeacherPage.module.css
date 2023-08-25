@@ -245,7 +245,7 @@
 
 .change_profile_box{
     width: 40%;
-    height: 60%;
+    height: 40%;
     background: white;
     display: flex;
     align-items: center;
@@ -270,64 +270,56 @@
     justify-content: space-around;
 }
 
-.input_profile_avatar_box{
+.img_edit_profile_box{
     width: 80%;
-    height: 20%;
+    height: 30%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
 }
 
-.profile_img_edit{
-    width: 20%;
-position: relative;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.profile_img_edit  input{
-    position: absolute;
-    opacity: 0;
-    left: 0;
-    bottom: 0;
-}
-
-.img_edit_label{
-    width: 65%;
+.img_edit_box{
+    width: 15%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
+    position: relative;
     border-radius: 50%;
     overflow: hidden;
-    border: 1px solid black;
+    cursor: pointer;
 }
 
-.avatar_profile_img_box{
-    width: 18%;
-    height: 100%;
-    overflow: hidden;
-    border-radius: 50%;
-}
-
-.avatar_profile_img_box > img{
+.img_edit_box > img{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.input_avatar{
-    padding: 10px 0;
-    outline: none;
+.input_file_profile_avatar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
 }
 
-.input_password{
+.profile_edit_label{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    align-items: center;
+justify-content: center;
+z-index: 1;
+font-size: 25px;
+cursor: pointer;
+}
+
+.profile_password_edit{
     width: 80%;
-    border: 1px solid gray;
-    padding: 10px 5px;
+    background: none;
+    border: none;
     outline: none;
+    padding: 0 5px;
+    border-bottom: 1px solid black;
 }
 
 .btn_submit_change_profile{

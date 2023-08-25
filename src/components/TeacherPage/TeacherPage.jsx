@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import logo from '../../images/black-logo.png'
 import c from './TeacherPage.module.css'
 import { NavLink, useParams } from 'react-router-dom'
@@ -19,6 +19,9 @@ const TeacherHeader = ({userInfo}) => {
   const [iconType, setIconType] = useState('')
   const [shadowStatement, setShadowStatement] = useState(false)
   const [profileChangeBox, setProfileChangeBox] = useState(false)
+  const [newPassword,setNewPassword] = useState('')
+  const inputFile = useRef()
+  const hosting = 'http://localhost:5000'
   const mainIcons = [
     {text: 'Home',
       route: '/teacher-cabinet/home',
@@ -134,25 +137,40 @@ setProfileChangeBox(true)
     <span onClick={() => {
     setProfileChangeBox(false)
     }}><FaRegWindowClose/></span>
-    <form onSubmit={async () => {
+    <form onSubmit={async (e) => {
       try{
+        e.preventDefault()
         const formData = new FormData()
+      if(inputFile.current.files.length > 0 || newPassword.length > 0){
+      if(inputFile.current.files.length > 0) formData.append('avatar', inputFile.current.files[inputFile.current.files.length - 1])
+      if(newPassword.length > 0) formData.append('password', newPassword)
+    const response = await fetch(`${hosting}/teachers`,{
+      method: 'PUT',
+      body: formData,
+      headers: {
+        'Content-Type': 'application/json charset=UTF-8'
+      }
+    })
+    const data = await response.json()
+    console.log(data)
+    if(data.status === 404) alert(data.error) 
+    else if(data.status === 200) return
+    }
+else throw new Error('Please make changes')
       }catch(err){
         alert(err.message)
       }
     }}>
-      <div className={c.input_profile_avatar_box}>
-      <div className={c.profile_img_edit}>
-      <input id='input_img_profile' className={c.input_avatar} type="file" />
-      <label className={c.img_edit_label} htmlFor="input_img_profile">
-        <span><MdAddAPhoto/></span>
-      </label>
+      <div className={c.img_edit_profile_box}>
+        <div className={c.img_edit_box}>
+          <img src={imgLink} alt="" />
+      <div className={c.profile_edit_label}><label htmlFor="profile_img_input"><MdAddAPhoto/></label></div>   
+          <input ref={inputFile}  id='profile_img_input' className={c.input_file_profile_avatar} type="file" />
+        </div>
+        <input onInput={e => {
+          setNewPassword(e.target.value)
+        }} className={c.profile_password_edit} placeholder='Write your new password (If you want to change it)' type="text" />
       </div>
-      <div className={c.avatar_profile_img_box}>
-        <img src={imgLink} alt="" />
-      </div>
-      </div>
-      <input placeholder='Write your new password' className={c.input_password} type="text" />
       <button className={c.btn_submit_change_profile}>Submit</button>
     </form>
   </div>
