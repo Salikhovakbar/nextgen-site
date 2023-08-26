@@ -125,9 +125,9 @@ setGroupId(e._id)
     groupStudentsData?.length > 0 ?   
     groupStudentsData.map((e, index) => 
     <tr key={e._id}>
-      <td>{e.firstname}</td>
+      <td>{ e.lastname + " " + e.firstname }</td>
       {attendanceData?.length > 0 ?  attendanceData.map(i =>
-      <td key={i._id}>{i.students_id.length > 0 && i.students_id.includes(e._id) ? 'P' : 'A'}</td>  
+     i.month === '1' ? <td style={i.students_id.length > 0 && i.students_id.includes(e._id) ? {background: 'green'} : i.students_id.length === 0 ? {background: 'yellow'}: {background: 'red'}} key={i._id}>{i.students_id.length > 0 && i.students_id.includes(e._id) ? 'P' : i.students_id.length === 0 ? 'N': 'A'}</td> : null  
       ) : null}
     </tr>
     )

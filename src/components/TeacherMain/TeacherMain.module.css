@@ -74,11 +74,12 @@ cursor: pointer;
 
 .journal{
     width: 90%;
-    margin: 20px auto;
+    margin: 0 auto;
     border-collapse: collapse;
+    overflow-y: auto;
 }
 
-.journal > td{
+.journal td{
     padding: 5px;
     border: 1px solid black;
 }
