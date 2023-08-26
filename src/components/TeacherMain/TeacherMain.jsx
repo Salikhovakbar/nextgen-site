@@ -127,7 +127,7 @@ setGroupId(e._id)
     <tr key={e._id}>
       <td>{e.firstname}</td>
       {attendanceData?.length > 0 ?  attendanceData.map(i =>
-      <td key={i._id}>{i.students_id.includes(e._id) ? 'yes' : 'no'}</td>  
+      <td key={i._id}>{i.students_id.length > 0 && i.students_id.includes(e._id) ? 'P' : 'A'}</td>  
       ) : null}
     </tr>
     )

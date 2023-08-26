@@ -79,14 +79,14 @@ ENGLISH SCHOOL</h1>
         window.location = data.route
     }
 }} className='register-form'>
-<input type="text" value={password} onInput={(e) => {
-    setPassword(e.target.value)
-}} placeholder='Password' />
 <div className='telephone-box-input'>
    <div className='telephone-code-box'>+998</div> <input type="number" value={telephone.length > 9 ? telephone.slice(0, 9) : telephone} onInput={(e) => {
 (setTelephone(e.target.value))
    }} />
 </div>
+<input type="text" value={password} onInput={(e) => {
+    setPassword(e.target.value)
+}} placeholder='Password' />
 <button className='submit-btn'>Login</button>
 <div className="route-link">
 <Link to={route === 'students-login' ? '/login/teachers-login': 'students-login'}>{route === 'students-login' ?'Teacher Account': 'Student Account'}</Link>

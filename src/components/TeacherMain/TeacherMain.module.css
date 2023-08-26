@@ -75,4 +75,10 @@ cursor: pointer;
 .journal{
     width: 90%;
     margin: 20px auto;
+    border-collapse: collapse;
+}
+
+.journal > td{
+    padding: 5px;
+    border: 1px solid black;
 }

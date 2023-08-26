@@ -13,9 +13,9 @@ const response = await fetch(`${hosting}/check-token`, {
 })
 const data = await response.json()
 if(data.status === 404) window.location = '/login/teachers-login'
+else if(!(data.route.includes('/teacher-cabinet'))) window.location = '/login/students-login'
 else {
-  fetch(`${hosting}/teachers/${data.id}`).then(res => res.json()).then(info => setUser(info.data))
-console.log(user)    
+  fetch(`${hosting}/teachers/${data.id}`).then(res => res.json()).then(info => setUser(info.data))  
 }})()
     }, [])
   return (
