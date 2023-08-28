@@ -79,7 +79,93 @@ cursor: pointer;
     overflow-y: auto;
 }
 
+.select_month{
+    padding: 10px 20px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+
+.popup_journal_container{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: none;
+}
+
+.popup_journal_container > div{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.journal_shadow_box{
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+}
+
+.journal_choose_state_box{
+    width: 40%;
+    height: 50%;
+    background: white;
+    position: relative;
+    z-index: 1;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.journal_choose_state_box select{
+    width: 80%;
+    padding: 10px 0;
+    outline: none;
+}
+
+.journal_choose_state_box textarea{
+    width: 80%;
+    outline: none;
+    padding: 5px;
+}
+
 .journal td{
     padding: 5px;
-    border: 1px solid black;
+    border: 0.5px solid rgb(193, 193, 193);
+}
+
+.student_name{
+    width: 25%;
+}
+
+.journal td > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.journal_circle{
+    border-radius: 50%;
+   padding: 15px 5px;
+   cursor: pointer;
+}
+
+.journal td img{
+    width: 20%;
+    height: 5%;
+    object-fit: cover;
+    border-radius: 50%;
 }

@@ -14,7 +14,13 @@ const TeacherMain = ({id}) => {
   const [groupStudentsData, setGroupStudentsData] = useState()
   const [groupsBoxCount, setGroupsBoxCount] = useState()
   const [attendanceData, setAttendanceData] = useState()
-fetch(`${hosting}/students?teacher_id=${id}`)
+  const [groupMonth, setGroupMonth] = useState('1')
+  const [journalPopUp, setJournalPopUp] = useState(false)
+  const[studentJournalId, setStudentJournalId] = useState('')
+  const [editAttendanceArr,setEditAttendanceArr] = useState([])
+  const [studentId, setStudentId] = useState("")
+  const [selectJournal, setSelectJournal] = useState('')
+ fetch(`${hosting}/students?teacher_id=${id}`)
 .then(response => response.json())
 .then(({data}) => setStudentsData(data))
 
@@ -38,6 +44,13 @@ const { data } = await response.json()
 setAttendanceData(data)
 })()
 }, [groupId])
+useEffect(() => {
+  ;(async () => {
+const response = await fetch(`${hosting}/attendance?group_id=${groupId}`)
+const { data } = await response.json()
+setAttendanceData(data)
+})()
+}, [])
   const studentsProductivityData = [
     {
       text: 'Active Students',
@@ -120,19 +133,87 @@ setGroupId(e._id)
   </div> : null
   )}
 </div>
+<div style={journalPopUp ? {display : 'block'} : null} className={c.popup_journal_container}>
+  <div>
+    <div onClick={() => {
+      setJournalPopUp(false)
+    }} className={c.journal_shadow_box}></div>
+  <div className={c.journal_choose_state_box}>    
+  <select onInput={async  (e) => {
+    try{
+      if(e.target.value === 'absent'){
+        setEditAttendanceArr(editAttendanceArr.includes(studentId) ? editAttendanceArr.filter(e => e !== studentId) : editAttendanceArr)
+    }
+     else if(e.target.value === 'present'){
+      setEditAttendanceArr(!editAttendanceArr.includes(studentId) ? editAttendanceArr.push(studentId) : editAttendanceArr)
+     }
+    const response = await fetch(`${hosting}/attendance/${studentJournalId}`,{
+      method: 'PUT',
+      body: JSON.stringify({
+        students_id: editAttendanceArr
+      }),
+      headers: {
+        token: localStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      }
+    })
+    const responseAttendance =  await fetch(`${hosting}/attendance?group_id=${groupId}`)
+    const { data } = await responseAttendance.json()
+    setAttendanceData(data)
+    }catch(err){
+      alert(err.message)
+    }
+  }}>
+    <option value='absent'>Absent</option>
+    <option value='present'>Present</option>
+  </select>
+  <textarea placeholder='Reasons why the student has not come' cols="30" rows="10"></textarea>
+  </div>
+  </div>
+</div>
+{
+    groupStudentsData?.length > 0 ?   
+  <div style={{width:'90%', margin: 'auto'}}>
+  <select onChange={(e) => {
+      setGroupMonth(e.target.value)
+    }} className={c.select_month}>
+  {
+    new Array(10).fill("*").map((e, index) =>
+    <option key={index} value={index + 1}>{index + 1}month</option>  
+    )
+  }
+</select>
+</div>
+ : null}
 <table className={c.journal}>
+  <tbody>
   {
     groupStudentsData?.length > 0 ?   
-    groupStudentsData.map((e, index) => 
+     groupStudentsData.map((e, index) => 
     <tr key={e._id}>
-      <td>{ e.lastname + " " + e.firstname }</td>
+      <td className={c.student_name}>
+        <div>
+      <img src={e.imgLink} alt="" />{ e.lastname + " " + e.firstname }
+        </div>
+        </td>
       {attendanceData?.length > 0 ?  attendanceData.map(i =>
-     i.month === '1' ? <td style={i.students_id.length > 0 && i.students_id.includes(e._id) ? {background: 'green'} : i.students_id.length === 0 ? {background: 'yellow'}: {background: 'red'}} key={i._id}>{i.students_id.length > 0 && i.students_id.includes(e._id) ? 'P' : i.students_id.length === 0 ? 'N': 'A'}</td> : null  
+     i.month === groupMonth ? <td key={i._id}>
+      <div onClick={() => {
+        setJournalPopUp(true)
+        setStudentJournalId(i._id)
+        setStudentId(e._id)
+        setEditAttendanceArr(attendanceData.filter(a => a._id === i._id)[0].students_id)
+      }} className={c.journal_circle} style={i.students_id.includes(e._id) ? {background: 'green'} :  {background: 'red'}}>
+        {i.students_id.includes(e._id) ? 'P' : 'A'}
+      </div>
+      </td> : null  
       ) : null}
     </tr>
+
     )
     : null
   }
+  </tbody>
 </table>
     </div>
   )
