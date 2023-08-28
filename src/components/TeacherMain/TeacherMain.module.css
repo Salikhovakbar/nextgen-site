@@ -119,11 +119,17 @@ cursor: pointer;
 
 .journal_choose_state_box{
     width: 40%;
-    height: 50%;
+    height: 60%;
     background: white;
     position: relative;
     z-index: 1;
     border-radius: 8px;
+    
+}
+
+.journal_choose_state_box > form{
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -131,15 +137,35 @@ cursor: pointer;
 }
 
 .journal_choose_state_box select{
-    width: 80%;
+    width: 90%;
     padding: 10px 0;
     outline: none;
 }
 
 .journal_choose_state_box textarea{
-    width: 80%;
+    width: 90%;
     outline: none;
     padding: 5px;
+}
+
+.student_journal_data_btn{
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.student_journal_data_btn > button{
+    outline: none;
+    padding: 10px 20px;
+    color: white;
+    background: black;
+    cursor: pointer;
+    border: none;
+}
+
+.student_journal_data_btn > button:hover{
+    background: gray;
+    transition: 0.5s;
 }
 
 .journal td{

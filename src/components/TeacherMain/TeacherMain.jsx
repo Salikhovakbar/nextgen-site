@@ -19,7 +19,8 @@ const TeacherMain = ({id}) => {
   const[studentJournalId, setStudentJournalId] = useState('')
   const [editAttendanceArr,setEditAttendanceArr] = useState([])
   const [studentId, setStudentId] = useState("")
-  const [selectJournal, setSelectJournal] = useState('')
+  const [absenceReason, setAbsenceReason] = useState('')
+  const [absenceReasonInfo, setAbsenceReasonInfo] = useState('')
  fetch(`${hosting}/students?teacher_id=${id}`)
 .then(response => response.json())
 .then(({data}) => setStudentsData(data))
@@ -139,6 +140,23 @@ setGroupId(e._id)
       setJournalPopUp(false)
     }} className={c.journal_shadow_box}></div>
   <div className={c.journal_choose_state_box}>    
+  <form onSubmit={async (e) => {
+    e.preventDefault()
+    const response = await fetch(`${hosting}/absence-reason${localStorage.getItem('absence-reason-id') ? "/" + localStorage.getItem('absence-reason-id'): ''}`,{
+      method: localStorage.getItem('absence-reason-id') ? 'PUT' : 'POST',
+      body: JSON.stringify({
+        reason: absenceReason,
+        student_id: studentId,
+        attendance_id: studentJournalId,
+        date: new Date()
+      }),
+      headers:{
+        token: localStorage.getItem('token'),
+        'Content-Type': 'application/json; charset=UTF-8'
+      }
+    })
+    setJournalPopUp(false)
+  }}>
   <select onInput={async  (e) => {
     try{
       if(e.target.value === 'absent'){
@@ -167,7 +185,13 @@ setGroupId(e._id)
     <option value='absent'>Absent</option>
     <option value='present'>Present</option>
   </select>
-  <textarea placeholder='Reasons why the student has not come' cols="30" rows="10"></textarea>
+  <textarea value={absenceReason} onChange={e => {
+    setAbsenceReason(e.target.value)
+  }} placeholder='Reasons why the student has not come' cols="30" rows="10"></textarea>
+  <div className={c.student_journal_data_btn}>
+    <button>Submit</button>
+  </div>
+  </form>
   </div>
   </div>
 </div>
@@ -203,6 +227,18 @@ setGroupId(e._id)
         setStudentJournalId(i._id)
         setStudentId(e._id)
         setEditAttendanceArr(attendanceData.filter(a => a._id === i._id)[0].students_id)
+          ;(async () => {
+    const response = await fetch(`${hosting}/absence-reason?attendance_id=${i._id}&student_id=${e._id}`)
+    const { data } = await response.json()
+    if(data.length > 0){
+       setAbsenceReason(data[0].reason)
+       localStorage.setItem('absence-reason-id', data[0]._id)
+      }
+      else{
+      setAbsenceReason('')
+      localStorage.removeItem('absence-reason-id')
+      }
+    })()
       }} className={c.journal_circle} style={i.students_id.includes(e._id) ? {background: 'green'} :  {background: 'red'}}>
         {i.students_id.includes(e._id) ? 'P' : 'A'}
       </div>

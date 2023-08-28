@@ -67,6 +67,7 @@
 
 .teacherHeader > div:last-child{
     width: 87%;
+    height: 100vh;
     overflow-y: auto;
 }
 
