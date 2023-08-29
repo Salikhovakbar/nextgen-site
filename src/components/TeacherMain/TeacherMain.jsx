@@ -20,7 +20,7 @@ const TeacherMain = ({id}) => {
   const [editAttendanceArr,setEditAttendanceArr] = useState([])
   const [studentId, setStudentId] = useState("")
   const [absenceReason, setAbsenceReason] = useState('')
-  const [absenceReasonInfo, setAbsenceReasonInfo] = useState('')
+  const [absenceStatement, setAbsenceStatement] = useState('')
  fetch(`${hosting}/students?teacher_id=${id}`)
 .then(response => response.json())
 .then(({data}) => setStudentsData(data))
@@ -157,18 +157,16 @@ setGroupId(e._id)
     })
     setJournalPopUp(false)
   }}>
-  <select onInput={async  (e) => {
+  <select value={absenceStatement} onInput={async  (e) => {
     try{
-      if(e.target.value === 'absent'){
-        setEditAttendanceArr(editAttendanceArr.includes(studentId) ? editAttendanceArr.filter(e => e !== studentId) : editAttendanceArr)
-    }
-     else if(e.target.value === 'present'){
+      setAbsenceStatement(e.target.value)
+     if(e.target.value === 'present'){
       setEditAttendanceArr(!editAttendanceArr.includes(studentId) ? editAttendanceArr.push(studentId) : editAttendanceArr)
      }
     const response = await fetch(`${hosting}/attendance/${studentJournalId}`,{
       method: 'PUT',
       body: JSON.stringify({
-        students_id: editAttendanceArr
+        students_id: e.target.value === 'absent' ? editAttendanceArr.filter(a => a !== studentId) : editAttendanceArr
       }),
       headers: {
         token: localStorage.getItem('token'),
@@ -227,6 +225,7 @@ setGroupId(e._id)
         setStudentJournalId(i._id)
         setStudentId(e._id)
         setEditAttendanceArr(attendanceData.filter(a => a._id === i._id)[0].students_id)
+        setAbsenceStatement(editAttendanceArr.includes(studentId) ? 'present' : 'absent')
           ;(async () => {
     const response = await fetch(`${hosting}/absence-reason?attendance_id=${i._id}&student_id=${e._id}`)
     const { data } = await response.json()
