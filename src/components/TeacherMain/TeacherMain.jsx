@@ -162,7 +162,16 @@ setGroupId(e._id)
       setAbsenceStatement(e.target.value)
      if(e.target.value === 'present'){
       setEditAttendanceArr(!editAttendanceArr.includes(studentId) ? editAttendanceArr.push(studentId) : editAttendanceArr)
-     }
+     if(localStorage.getItem('absence-reason-id')){ 
+      const responseAbsenceReason = await fetch(`${hosting}/absence-reason/${localStorage.getItem('absence-reason-id')}`,{
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const dataAbsenceReason = await responseAbsenceReason.json()
+     setAbsenceReason('')
+    }}
     const response = await fetch(`${hosting}/attendance/${studentJournalId}`,{
       method: 'PUT',
       body: JSON.stringify({
@@ -177,7 +186,7 @@ setGroupId(e._id)
     const { data } = await responseAttendance.json()
     setAttendanceData(data)
     }catch(err){
-      alert(err.message)
+      console.log(err.message)
     }
   }}>
     <option value='absent'>Absent</option>
@@ -220,12 +229,13 @@ setGroupId(e._id)
         </td>
       {attendanceData?.length > 0 ?  attendanceData.map(i =>
      i.month === groupMonth ? <td key={i._id}>
+      <div>
       <div onClick={() => {
         setJournalPopUp(true)
         setStudentJournalId(i._id)
         setStudentId(e._id)
         setEditAttendanceArr(attendanceData.filter(a => a._id === i._id)[0].students_id)
-        setAbsenceStatement(editAttendanceArr.includes(studentId) ? 'present' : 'absent')
+        setAbsenceStatement((attendanceData.filter(a => a._id === i._id)[0].students_id).includes(e._id) ? 'present' : 'absent')
           ;(async () => {
     const response = await fetch(`${hosting}/absence-reason?attendance_id=${i._id}&student_id=${e._id}`)
     const { data } = await response.json()
@@ -240,6 +250,7 @@ setGroupId(e._id)
     })()
       }} className={c.journal_circle} style={i.students_id.includes(e._id) ? {background: 'green'} :  {background: 'red'}}>
         {i.students_id.includes(e._id) ? 'P' : 'A'}
+      </div>
       </div>
       </td> : null  
       ) : null}

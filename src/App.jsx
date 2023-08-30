@@ -5,6 +5,7 @@ import Main from './routes/Main/Main';
 import Login from './routes/Login/Login';
 import Student from './routes/Student/Student';
 import Teacher from './routes/Teacher/Teacher';
+import CheckLevelTest from './routes/CheckLevelTest/CheckLevelTest';
 function App() {
   return (
     <>
@@ -22,6 +23,9 @@ function App() {
 </Route>
 <Route path='/teacher-cabinet/:route'>
 <Teacher/>
+</Route>
+<Route path='/check-level-test'>
+  <CheckLevelTest/>
 </Route>
     </>
   );
