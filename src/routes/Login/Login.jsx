@@ -80,11 +80,11 @@ ENGLISH SCHOOL</h1>
     }
 }} className='register-form'>
 <div className='telephone-box-input'>
-   <div className='telephone-code-box'>+998</div> <input type="number" value={telephone.length > 9 ? telephone.slice(0, 9) : telephone} onInput={(e) => {
+   <div className='telephone-code-box'>+998</div> <input required type="number" value={telephone.length > 9 ? telephone.slice(0, 9) : telephone} onInput={(e) => {
 (setTelephone(e.target.value))
    }} />
 </div>
-<input type="text" value={password} onInput={(e) => {
+<input required type="text" value={password} onInput={(e) => {
     setPassword(e.target.value)
 }} placeholder='Password' />
 <button className='submit-btn'>Login</button>

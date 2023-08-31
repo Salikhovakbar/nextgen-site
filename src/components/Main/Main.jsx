@@ -8,9 +8,10 @@ import { GiTeacher } from 'react-icons/gi'
 import { MdCastForEducation, MdMobileFriendly } from 'react-icons/md'
 import { AiFillBook, AiOutlineRight } from'react-icons/ai'
 import { HiUserGroup } from 'react-icons/hi'
+import { TfiWrite } from 'react-icons/tfi'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { Link } from 'react-router-dom'
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -19,7 +20,7 @@ import 'swiper/css/scrollbar';
 import genEn from '../../images/general-english.png'
 import ieltsLogo from '../../images/IELTS.png'
 import { useSelector } from 'react-redux'
-const Main = () => {
+const Main = ({adminConfirmation, hosting}) => {
  const translation = useSelector(({languageShift}) => languageShift)
  const [firstname,setFirstname] = useState('')
     const [telephone, setTelephone] = useState('')
@@ -205,7 +206,6 @@ const mediaApps = [
         link: "https://www.tiktok.com/@nextgenengliadmin"
     }
 ];
-const hosting = 'http://localhost:5000';
 useEffect( () => {
    fetch(hosting + '/teachers-data')
   .then(response => response.json())
@@ -279,6 +279,7 @@ setRegisterForm(true)
     )
 }
             </div>
+            <div style={adminConfirmation === true ? {display: 'block'} : null} className='take-exam-box'><Link to='/check-level-test'><TfiWrite/></Link></div>
             <div className='call-box'>
             <div onClick={() => {
                 window.scrollTo({top: 0})

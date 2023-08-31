@@ -211,6 +211,26 @@
     justify-content: center;
 }
 
+.take-exam-box{
+    display: none;
+    padding: 15px 17px;
+    border-radius: 50%;
+    background-color: rgba(52, 52, 52, 0.4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    position: fixed;
+    color: white;
+    left: 0;
+    bottom: 0;
+    
+}
+
+.take-exam-box > a{
+    color: white;
+    text-decoration: none;
+}
+
 .call-box{
     position: fixed;
     right: 0;

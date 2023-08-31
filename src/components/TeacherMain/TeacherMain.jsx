@@ -24,20 +24,6 @@ const TeacherMain = ({id}) => {
  fetch(`${hosting}/students?teacher_id=${id}`)
 .then(response => response.json())
 .then(({data}) => setStudentsData(data))
-
-useEffect(() =>{fetch(`${hosting}/groups?day=${groupDays}&teacher_id=${id}`)
-.then(response => response.json())
-.then(({data})=> {
- setGroupsData(data)
-//  setGroupId(data[0]?._id)
-})}, [groupDays])
-useEffect(() => {
-;(async () => {
-const response = await fetch(`${hosting}/students?group_id=${groupId}&teacher_id=${id}`)
-const { data } = await response.json()
-setGroupStudentsData(data)
-})()
-}, [groupId])
 useEffect(() => {
   ;(async () => {
 const response = await fetch(`${hosting}/attendance?group_id=${groupId}`)
@@ -122,9 +108,12 @@ setAttendanceData(data)
 <div className={c.groups_box}>
   {groupsData.map((e, index) => 
   e.day === groupDays ?
-  <div style={groupsBoxCount === index ? {background: 'rgb(215, 215, 215)'} : null} onClick={()=> {
+  <div style={groupsBoxCount === index ? {background: 'rgb(215, 215, 215)'} : null} onClick={async ()=> {
     setGroupsBoxCount(index)
 setGroupId(e._id)
+const response = await fetch(`${hosting}/students?group_id=${e._id}&teacher_id=${id}`)
+const { data } = await response.json()
+setGroupStudentsData(data)
   }} key={e._id}>
     <span style={{fontSize: '20px'}}><HiUserGroup/></span>
     <div>

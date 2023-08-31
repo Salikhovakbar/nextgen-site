@@ -88,7 +88,7 @@ grid-template-columns: 1fr;
     .sidebar_select_box{
         width: 30%;
         position: absolute;
-        bottom: -70%;
+        bottom: -80%;
         background: white;
         border-radius: 10px;
         display: none;
@@ -107,9 +107,12 @@ justify-content: center;
 cursor: pointer;
 transition: 1s;
 color: black;
-
     }
     .sidebar_select_box > div:hover{
         background-color: rgb(233, 233, 233);
+    }
+    .sidebar_select_box > div >a{
+        color: black;
+        text-decoration: none;
     }
 }
