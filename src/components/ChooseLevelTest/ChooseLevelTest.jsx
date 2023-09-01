@@ -6,7 +6,11 @@ const ChooseLevelTest = ({hosting}) => {
     const [testData, setTestData] = useState()
     const [levelTest,setLevelTest] = useState('')
     const levelInfo = useSelector(({testLevel}) => testLevel).level
-    const { level, section } = levelInfo
+    let { level, section } = levelInfo
+    if(level)localStorage.setItem('level', level)
+    if(section)localStorage.setItem('section', section)
+    level = localStorage.getItem('level')
+    section = localStorage.getItem('section') 
     const dispatch = useDispatch()
     useEffect(() => {
         ;(async () => {
@@ -23,7 +27,6 @@ const ChooseLevelTest = ({hosting}) => {
             setTestData(data.data)
             dispatch({type: 'TEST', data: testData})
           }
-          console.log(data)
         }catch(err){
           alert(err.message)
         }
