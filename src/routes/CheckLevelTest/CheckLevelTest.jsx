@@ -3,6 +3,7 @@ import {useState,useEffect} from 'react'
 import { useLocation } from 'react-router-dom'
 import logo from '../../images/logo-nextgen.png'
 import ChooseLevelTest from '../../components/ChooseLevelTest/ChooseLevelTest'
+import TestLevel from '../../components/TestLevel/TestLevel'
 const CheckLevelTest = () => {
   const hosting = 'http://localhost:5000'
   const { pathname } = useLocation()
@@ -29,6 +30,7 @@ try{
     {pathname === '/check-level-test' ?<CheckLevelTestHeader/> : null}
     {pathname === '/check-level-test'? <div style={{width: '100%', height: '90vh'}}><img style={{width: '100%', height: '100%', objectFit: 'contain'}} src={logo} alt="" /></div> : null}
     {pathname === '/check-level-test/choose-level' ? <ChooseLevelTest hosting={hosting}/> : null}
+    {pathname === '/check-level-test/exam' ? <TestLevel/> : null}
     </>
   )
 }
