@@ -27,6 +27,20 @@
     transition: 1s;
 }
 
+.question_box{
+    width: 90%;
+    margin: 20px auto;
+}
+
+.question_options_box{
+    width: 40%;
+    padding: 10px 5px;
+    position: relative;
+    margin: 5px 0;
+    background: rgb(231, 231, 231);
+    cursor: pointer;
+}
+
 .next_page_btn_box{
     width: 90%;
     display: flex;

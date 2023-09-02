@@ -5,7 +5,7 @@ return { language: action.data }
 return state
 }
 
-const testReducer = (state = {level: '', stage_level: '',grammar: [], reading: [], vocabulary: []}, action) => {
+const testReducer = (state = {_id: '',level: '', stage_level: '',grammar: [], reading: [], vocabulary: []}, action) => {
 if(action.type === 'TEST'){
     return {testData: action.data}
 }
