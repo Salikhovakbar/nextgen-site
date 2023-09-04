@@ -8,6 +8,8 @@ const TestLevel = () => {
     const [testPage, setTestPage] = useState(1)
     const [numberQuestion, setNumberQuestion] = useState(0)
     const [progressPageWidth, setProgressPageWidth] = useState(20)
+    const [optionChosen, setOptionChosen] = useState([])
+    let optionArr = []
     if(testData) localStorage.setItem('test-data', JSON.stringify(testData))
     if(section) localStorage.setItem('section', section)
     testData = JSON.parse(localStorage.getItem('test-data'))
@@ -27,9 +29,14 @@ const TestLevel = () => {
               <div className={c.question_box} key={e._id}>
               <span>{e.test}</span>
               <div style={{marginTop: '20px'}}>
-            {e.options.map((option) => 
-            <div className={c.question_options_box} key={uuidv4()}>
-                <input name={e._id} id={uuidv4()} type="radio" /> <label htmlFor={uuidv4()}>{option}</label>
+            {e.options.map((option, index) => 
+            <div style={optionChosen.includes(option._id) ? {background: 'black', color: 'white'} : null} onClick={() => {
+            if((optionArr.indexOf(option._id) === -1)){
+              optionArr.push(option._id)
+              // setOptionChosen(optionChosen.push(option._id))
+            }
+            }} className={c.question_options_box} key={uuidv4()}>
+              <span>{index === 0 ? 'A' :  index === 1 ? 'B' : 'C'}</span><span style={{width: '50%', display: 'flex', justifyContent: 'center'}}>{option.option}</span>
               </div>
               )}
               </div>

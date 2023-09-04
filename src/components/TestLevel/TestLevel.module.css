@@ -37,6 +37,8 @@
     padding: 10px 5px;
     position: relative;
     margin: 5px 0;
+    display: flex;
+    align-items: center;
     background: rgb(231, 231, 231);
     cursor: pointer;
 }
